@@ -31,22 +31,34 @@ BEGIN
     LEFT JOIN heightlevel_mapping hm ON hm.a = i.heightlevel
     LEFT JOIN slopes ON slopes.slope = i.slope;
 
-COPY
-    (WITH foresttype AS
+COPY (
+WITH foresttype AS
          (SELECT region,
                  heightlevel,
                  slope,
+                 condition,
                  jsonb_object_agg(coalesce(foresttype::text, 'not found'), coalesce(targets::text, 'not found')) AS json
           FROM projections_export
           GROUP BY (region,
                    heightlevel,
-                   slope)),
-          slope AS
+                   slope,
+                   condition)),
+          condition AS
          (SELECT region,
                  heightlevel,
-                 jsonb_object_agg(slope, foresttype.json) AS json
+                 slope,
+                 jsonb_object_agg(coalesce(condition::text, 'no condition'), foresttype.json) AS json
           FROM projections_export
-          LEFT JOIN foresttype USING (region, heightlevel, slope)
+          LEFT JOIN foresttype USING (region, heightlevel, slope, condition)
+          GROUP BY region,
+                   heightlevel,
+                   slope),
+		   slope AS
+         (SELECT region,
+                 heightlevel,
+                 jsonb_object_agg(slope, condition.json) AS json
+          FROM projections_export
+          LEFT JOIN condition USING (region, heightlevel, slope)
           GROUP BY region,
                    heightlevel),
           heightlevels AS
@@ -57,7 +69,8 @@ COPY
                                  heightlevel)
           GROUP BY region) SELECT jsonb_object_agg(region, heightlevels.json)
      FROM projections_export
-     LEFT JOIN heightlevels USING (region)) TO '/data/projections.json';
+     LEFT JOIN heightlevels USING (region))
+     TO '/data/projections.json';
 
 -- 5.) Dynamically generate json file for enum validation in the library
 COPY (
