@@ -2,7 +2,7 @@ CREATE FUNCTION export_projections() RETURNS integer AS $$
 DECLARE x integer;
 BEGIN
   TRUNCATE projections_export;
-  INSERT INTO projections_export (region, heightlevel, foresttype, targets, slope)
+  INSERT INTO projections_export (region, heightlevel, foresttype, targets, condition, slope)
     -- 3.) Match CSV values to enum values.
     WITH slopes AS (SELECT slope, array_to_string(regexp_matches(slope, '(<|>).*(\d{2})'), '') parsed_slope FROM projections_import)
        SELECT
@@ -14,6 +14,10 @@ BEGIN
       END,
       CASE targets::name = any(enum_range(null::foresttype)::name[])
         WHEN TRUE THEN targets::foresttype
+        ELSE null
+      END,
+       CASE condition::name = any(enum_range(null::condition)::name[])
+        WHEN TRUE THEN condition::condition
         ELSE null
       END,
       CASE slopes.slope is null
