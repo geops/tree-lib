@@ -66,9 +66,12 @@ SELECT enum_range(null::region)::name[] AS values
 ),
 heightlevel AS (
 SELECT enum_range(null::heightlevel)::name[] AS values
-) 
-SELECT jsonb_build_object('forestType', foresttype.values,'forestEcoregion', regions.values,'heightLevel',heightlevel.values)
-FROM foresttype, regions, heightlevel
+),
+condition AS (
+SELECT enum_range(null::condition)::name[] AS values
+)
+SELECT jsonb_build_object('forestType', foresttype.values,'forestEcoregion', regions.values,'heightLevel',heightlevel.values,'condition',condition.values)
+FROM foresttype, regions, heightlevel, condition
 ) TO '/data/valid_enum.json';
 
 
