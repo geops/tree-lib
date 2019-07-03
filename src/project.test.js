@@ -6,7 +6,7 @@ test('valid projection', () => {
       forestEcoregion: '1',
       heightLevel: 'SA',
       forestType: '60*',
-      slope: 68,
+      slope: '<70',
     }).target,
   ).toBe('50*');
 });
