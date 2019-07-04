@@ -267,11 +267,205 @@ VALUES (1,
 
 
 CREATE TABLE slope_meta (target TEXT, de TEXT);
-INSERT INTO slope_meta (target, de) VALUES ('<60', '<60%');
-INSERT INTO slope_meta (target, de) VALUES ('<70', '<70%');
-INSERT INTO slope_meta (target, de) VALUES ('>60', '>60%');
-INSERT INTO slope_meta (target, de) VALUES ('>70', '>70%');
-INSERT INTO slope_meta (target, de) VALUES ('unknown', 'nicht relevant');
+
+
+INSERT INTO slope_meta (target, de)
+VALUES ('<60',
+        '<60%');
+
+
+INSERT INTO slope_meta (target, de)
+VALUES ('<70',
+        '<70%');
+
+
+INSERT INTO slope_meta (target, de)
+VALUES ('>60',
+        '>60%');
+
+
+INSERT INTO slope_meta (target, de)
+VALUES ('>70',
+        '>70%');
+
+
+INSERT INTO slope_meta (target, de)
+VALUES ('unknown',
+        'nicht relevant');
+
+
+CREATE TYPE additional AS ENUM ('NrmlSl','ExtB','Nrml','withAv','CmpS','Shdy_Cl_Bb','D','Shdy_Cl','Wrm_Rdt','=10F','Cl','<1F','NoAvln','WthAvln', 'D_Eb_Cl','>5F','<5F','DpSl_Shdy','Dp','Rvn','Rbl','Shlw','<10F','>10F');
+
+
+CREATE TABLE additional_meta (source TEXT, de TEXT,en TEXT,target additional);
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('Boden normal',
+        'Boden normal',
+        'Normal Soil',
+        'NrmlSl');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('Extrem blockig',
+        'Extrem blockig',
+        'Extremely blocky',
+        'ExtB');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('Normal',
+        'Normal',
+        'Normal',
+        'Nrml');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('bei Lawinenzug',
+        'bei Lawinenzug',
+        'for avalanches',
+        'withAv');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('Boden verdichtet',
+        'Boden verdichtet',
+        'Compacted Soil',
+        'CmpS');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('Schattig, Kühl, grosse Blocke',
+        'Schattig, Kühl, grosse Blocke',
+        'Shady, Cool, Big blocks',
+        'Shdy_Cl_Bb');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('Trocken',
+        'Trocken',
+        'Dry',
+        'D');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('Schattig, Kühl',
+        'Schattig, Kühl',
+        'Shady, Cool',
+        'Shdy_Cl');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('Warm und Strahlungsreich',
+        'Warm und Strahlungsreich',
+        'Warm and radiant',
+        'Wrm_Rdt');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('Falls mind alle 10 jahre überschwemmt',
+        'Falls mind alle 10 jahre überschwemmt',
+        'Flooded every 10 years',
+        '=10F');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('Kühl',
+        'Kühl',
+        'Cool',
+        'Cl');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('Falls alljahrlich überschwemmt',
+        'Falls alljahrlich überschwemmt',
+        'Flooded every year',
+        '<1F');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('Keine Lawinenbeeinflussung',
+        'Keine Lawinenbeeinflussung',
+        'No avalanche influence',
+        'NoAvln');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('mit Lawinenbeeinflussung',
+        'mit Lawinenbeeinflussung',
+        'With avalanche control',
+        'WthAvln');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('trocken, extrem blockig, kühl',
+        'trocken, extrem blockig, kühl',
+        'Dry, Extremely blocky, Cool',
+        'D_Eb_Cl');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('alle 6 Jahre oder seltener überschwemmt',
+        'alle 6 Jahre oder seltener überschwemmt',
+        'Flooded every six years or less',
+        '>5F');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('bis alle 5 Jahre überschwemmt',
+        'bis alle 5 Jahre überschwemmt',
+        'Flooded every five years',
+        '<5F');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('tiefgründiger Boden, schattig',
+        'tiefgründiger Boden, schattig',
+        'Deep soil, Shady',
+        'DpSl_Shdy');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('tiefgründig',
+        'tiefgründig',
+        'Deep',
+        'Dp');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('Schlucht',
+        'Schlucht',
+        'Ravine',
+        'Rvn');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('mit viel Schutt',
+        'mit viel Schutt',
+        'With lots of rubble',
+        'Rbl');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('flachgründig',
+        'flachgründig',
+        'Shallow',
+        'Shlw');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('weniger als alle 10 Jahre überschwemmt',
+        'weniger als alle 10 Jahre überschwemmt',
+        'Flooded less than every 10 years',
+        '<10F');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('mind. alle 10 Jahre überschwemmt',
+        'mind. alle 10 Jahre überschwemmt',
+        'Flooded at least every 10 years',
+        '>10F');
 
 -- 2.) Add new column to export table using enum type.
 
@@ -279,4 +473,5 @@ CREATE TABLE projections_export (id serial, region region,
                                             heightlevel heightlevel,
                                             foresttype foresttype,
                                             targets foresttype,
+                                            additional additional,
                                             slope text);

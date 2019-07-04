@@ -2,7 +2,7 @@ CREATE FUNCTION export_projections() RETURNS integer AS $$
 DECLARE x integer;
 BEGIN
   TRUNCATE projections_export;
-  INSERT INTO projections_export (region, heightlevel, foresttype, targets, slope)
+  INSERT INTO projections_export (region, heightlevel, foresttype, targets, additional, slope)
     -- 3.) Match CSV values to enum values.
     WITH slopes AS (SELECT slope, array_to_string(regexp_matches(slope, '(<|>).*(\d{2})'), '') parsed_slope FROM projections_import)
        SELECT
@@ -14,6 +14,10 @@ BEGIN
       END,
       CASE targets::name = any(enum_range(null::foresttype)::name[])
         WHEN TRUE THEN targets::foresttype
+        ELSE null
+      END,
+      CASE additional::name = any(enum_range(null::additional)::name[])
+        WHEN TRUE THEN additional::additional
         ELSE null
       END,
       CASE slopes.slope is null
@@ -68,15 +72,18 @@ SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS values FROM regi
 heightlevel AS (
 SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS values FROM heightlevel_meta
 ),
+additional AS (
+SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS values FROM additional_meta
+),
 slope AS (
 SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS values FROM slope_meta
 )
-SELECT jsonb_build_object('forestType', foresttype.values,'forestEcoregion', regions.values,'heightLevel',heightlevel.values,'slope',slope.values)
-FROM foresttype, regions, heightlevel, slope
+SELECT jsonb_build_object('forestType', foresttype.values,'forestEcoregion', regions.values,'heightLevel',heightlevel.values,'additional',additional.values,'slope',slope.values)
+FROM foresttype, regions, heightlevel, additional,slope
 ) TO '/data/valid_enum.json';
 
 
-  GET DIAGNOSTICS x = ROW_COUNT;
+GET DIAGNOSTICS x = ROW_COUNT;
   RETURN x;
 END;
 $$ LANGUAGE plpgsql;
