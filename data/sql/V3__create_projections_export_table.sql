@@ -294,7 +294,7 @@ VALUES ('unknown',
         'nicht relevant');
 
 
-CREATE TYPE additional AS ENUM ('NrmlSl','ExtB','Nrml','withAv','CmpS','Shdy_Cl_Bb','Shdy_Cl','Wrm_Rdt','=10F','Cl','<1F','NoAvln','WthAvln', 'D_Eb_Cl','>5F','<5F','DpSl_Shdy','Dp','Rvn','Rbl','Shlw','<10F','>10F');
+CREATE TYPE additional AS ENUM ('NrmlSl','ExtB','Nrml','withAv','CmpS','Shdy_Cl_Bb','Shdy_Cl','Wrm_Rdt','=10F','Cl','<1F','NoAvln','WthAvln', 'D_Eb_Cl','>5F','<5F','DpSl_Shdy','Dp','Rvn','Rbl','Shlw','<10F','>10F','unknown');
 
 
 CREATE TABLE additional_meta (source TEXT, de TEXT,en TEXT,target additional);
@@ -459,6 +459,13 @@ VALUES ('mind. alle 10 Jahre überschwemmt',
         'mind. alle 10 Jahre überschwemmt',
         'Flooded at least every 10 years',
         '>10F');
+
+
+INSERT INTO additional_meta (source,de,en,target)
+VALUES ('',
+        'nicht relevant',
+        'not relevant',
+        'unknown');
 
 -- 2.) Add new column to export table using enum type.
 

@@ -18,9 +18,18 @@ const conditions = [
     field: 'slope',
     values: validTypes.slope,
   },
+  {
+    field: 'additional',
+    values: validTypes.additional,
+  },
 ];
 
+const validLanguages = ['de'];
+
 function project(location, language) {
+  if (!validLanguages.includes(language)) {
+    throw new Error(`${language} is not supported.`);
+  }
   const options = {};
   let target = projections;
   for (let i = 0; i < conditions.length; i += 1) {
@@ -44,7 +53,6 @@ function project(location, language) {
       break;
     }
   }
-
   const newLocation = { ...location, options };
   if (typeof target === 'string') {
     newLocation.target = validTypes.forestType.find(t => t.key === target)[

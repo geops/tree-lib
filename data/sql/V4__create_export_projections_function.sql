@@ -29,12 +29,21 @@ BEGIN
     LEFT JOIN additional_meta am ON lower(am.source) = lower(i.condition)
     LEFT JOIN slopes ON slopes.slope = i.slope;
 
-COPY(
-    WITH slope AS
+COPY(WITH additional AS (
+	SELECT foresttype, region,
+                 heightlevel,
+                 slope,
+                 jsonb_object_agg(coalesce(additional::text,'unknown'), targets::text) AS json
+          FROM projections_export
+          WHERE targets IS NOT NULL
+          GROUP BY foresttype, region,
+                   heightlevel, slope
+),slope AS
          (SELECT foresttype, region,
                  heightlevel,
-                 jsonb_object_agg(slope, targets::text) AS json
+                 jsonb_object_agg(slope, additional.json) AS json
           FROM projections_export
+          LEFT JOIN additional USING (foresttype, region, heightlevel, slope)
           WHERE targets IS NOT NULL
           GROUP BY foresttype, region,
                    heightlevel),
@@ -56,7 +65,7 @@ COPY(
      FROM projections_export
      LEFT JOIN regions USING (foresttype)
      WHERE regions.json IS NOT NULL
-     ) TO '/data/projections.json';
+) TO '/data/projections.json';
 
 -- 5.) Dynamically generate json file for enum validation in the library
 COPY (
