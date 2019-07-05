@@ -16,10 +16,7 @@ BEGIN
         WHEN TRUE THEN targets::foresttype
         ELSE null
       END,
-      CASE additional::name = any(enum_range(null::additional)::name[])
-        WHEN TRUE THEN additional::additional
-        ELSE null
-      END,
+      am.target AS additional,
       CASE slopes.slope is null
         WHEN TRUE THEN 'unknown'
         ELSE slopes.parsed_slope
@@ -29,6 +26,7 @@ BEGIN
         SELECT string_agg(regions.unnest, '|'::text) FROM regions
       )))[1]::region AS region, * FROM projections_import) i
     LEFT JOIN heightlevel_meta hm ON hm.source = i.heightlevel
+    LEFT JOIN additional_meta am ON lower(am.source) = lower(i.condition)
     LEFT JOIN slopes ON slopes.slope = i.slope;
 
 COPY(

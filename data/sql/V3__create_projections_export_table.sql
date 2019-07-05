@@ -294,7 +294,7 @@ VALUES ('unknown',
         'nicht relevant');
 
 
-CREATE TYPE additional AS ENUM ('NrmlSl','ExtB','Nrml','withAv','CmpS','Shdy_Cl_Bb','D','Shdy_Cl','Wrm_Rdt','=10F','Cl','<1F','NoAvln','WthAvln', 'D_Eb_Cl','>5F','<5F','DpSl_Shdy','Dp','Rvn','Rbl','Shlw','<10F','>10F');
+CREATE TYPE additional AS ENUM ('NrmlSl','ExtB','Nrml','withAv','CmpS','Shdy_Cl_Bb','Shdy_Cl','Wrm_Rdt','=10F','Cl','<1F','NoAvln','WthAvln', 'D_Eb_Cl','>5F','<5F','DpSl_Shdy','Dp','Rvn','Rbl','Shlw','<10F','>10F');
 
 
 CREATE TABLE additional_meta (source TEXT, de TEXT,en TEXT,target additional);
@@ -336,17 +336,10 @@ VALUES ('Boden verdichtet',
 
 
 INSERT INTO additional_meta (source,de,en,target)
-VALUES ('Schattig, Kühl, grosse Blocke',
-        'Schattig, Kühl, grosse Blocke',
+VALUES ('schattig, kühl, grosse Blöcke',
+        'schattig, kühl, grosse Blöcke',
         'Shady, Cool, Big blocks',
         'Shdy_Cl_Bb');
-
-
-INSERT INTO additional_meta (source,de,en,target)
-VALUES ('Trocken',
-        'Trocken',
-        'Dry',
-        'D');
 
 
 INSERT INTO additional_meta (source,de,en,target)
@@ -364,8 +357,8 @@ VALUES ('Warm und Strahlungsreich',
 
 
 INSERT INTO additional_meta (source,de,en,target)
-VALUES ('Falls mind alle 10 jahre überschwemmt',
-        'Falls mind alle 10 jahre überschwemmt',
+VALUES ('falls mind alle 10 Jahre überschwemmt',
+        'falls mind alle 10 Jahre überschwemmt',
         'Flooded every 10 years',
         '=10F');
 
@@ -378,8 +371,8 @@ VALUES ('Kühl',
 
 
 INSERT INTO additional_meta (source,de,en,target)
-VALUES ('Falls alljahrlich überschwemmt',
-        'Falls alljahrlich überschwemmt',
+VALUES ('falls alljährlich überschwemmt',
+        'falls alljährlich überschwemmt',
         'Flooded every year',
         '<1F');
 
