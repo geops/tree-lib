@@ -21,7 +21,7 @@ BEGIN
         WHEN TRUE THEN 'unknown'
         ELSE slopes.parsed_slope
       END AS slope
-    FROM (SELECT (regexp_matches(regexp_split_to_table(regexp_replace(regions, '2(,|\s)', '2a, 2b,'), ',\s?'), (
+    FROM (SELECT (regexp_matches(regexp_split_to_table(regexp_replace(coalesce(standortsregion,regions), '2(,|\s)', '2a, 2b,'), ',\s?'), (
         WITH regions AS (SELECT unnest(enum_range(NULL::region))::text)
         SELECT string_agg(regions.unnest, '|'::text) FROM regions
       )))[1]::region AS region, * FROM projections_import) i
