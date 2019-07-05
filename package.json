@@ -58,5 +58,7 @@
     "lint": "microbundle && eslint src",
     "test": "microbundle && jest"
   },
-  "dependencies": {}
+  "dependencies": {
+    "js-yaml": "^3.13.1"
+  }
 }
