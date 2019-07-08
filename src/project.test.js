@@ -44,3 +44,7 @@ test('invalid location values', () => {
 test('unsupported language', () => {
   expect(() => project({}, 'fooBar')).toThrowError('fooBar is not supported.');
 });
+
+test('unsupported language', () => {
+  expect(() => project({}, 'fooBar')).toThrowError('fooBar is not supported.');
+});
