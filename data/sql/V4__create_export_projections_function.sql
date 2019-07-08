@@ -1,8 +1,8 @@
 CREATE FUNCTION export_projections() RETURNS integer AS $$
 DECLARE x integer;
 BEGIN
-  TRUNCATE projections_export;
-  INSERT INTO projections_export (region, heightlevel, foresttype, targets, additional, tannenareal, slope)
+ TRUNCATE projections_export;
+INSERT INTO projections_export (region, heightlevel, foresttype, targets, additional, tannenareal, relief, slope)
     -- 3.) Match CSV values to enum values.
     WITH slopes AS (SELECT slope, array_to_string(regexp_matches(slope, '(<|>).*(\d{2})'), '') parsed_slope FROM projections_import)
        SELECT
@@ -24,6 +24,10 @@ BEGIN
         WHEN TRUE THEN 'unknown'
         ELSE tm.target
       END AS tannenareal,
+      CASE rm.target is null
+      WHEN TRUE THEN 'unknown'
+	      ELSE rm.target
+      END AS relief,
       CASE slopes.slope is null
         WHEN TRUE THEN 'unknown'
         ELSE slopes.parsed_slope
@@ -35,16 +39,28 @@ BEGIN
     LEFT JOIN heightlevel_meta hm ON hm.source = i.heightlevel
     LEFT JOIN additional_meta am ON lower(am.source) = lower(i.condition)
     LEFT JOIN tannen_meta tm ON lower(tm.source) = coalesce(trim(lower(i.reliktareal)),trim(lower(i.nebenareal)),trim(lower(i.tannenareal))) --OR lower(tm.source) = trim(lower(i.nebenareal)) OR lower(tm.source) = trim(lower(i.reliktareal))
+    LEFT JOIN relief_meta rm ON rm.source = i.relief
     LEFT JOIN slopes ON slopes.slope = i.slope;
 
 COPY (
-  WITH tannenareal AS (
+WITH relief AS (
+	SELECT foresttype, region,
+                 heightlevel,
+                 slope,additional,tannenareal,
+                 jsonb_object_agg(relief, targets::text) AS json
+          FROM projections_export
+          WHERE targets IS NOT NULL
+          GROUP BY foresttype, region,
+                   heightlevel, slope, additional, tannenareal
+),
+tannenareal AS (
 	SELECT foresttype, region,
                  heightlevel,
                  slope,additional,
-                 jsonb_object_agg(tannenareal, targets::text) AS json
+                 jsonb_object_agg(tannenareal, relief.json) AS json
           FROM projections_export
-          WHERE targets IS NOT NULL
+          LEFT JOIN relief USING (foresttype, region, heightlevel, slope, additional, tannenareal)
+          WHERE relief.json IS NOT NULL
           GROUP BY foresttype, region,
                    heightlevel, slope, additional
 ),
@@ -105,11 +121,14 @@ SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS values FROM addi
 tannenareal as (
 SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS values FROM tannen_meta
 ),
+relief as (
+SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS values FROM relief_meta
+),
 slope AS (
 SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS values FROM slope_meta
 )
-SELECT jsonb_build_object('forestType', foresttype.values,'forestEcoregion', regions.values,'heightLevel',heightlevel.values,'additional',additional.values,'tannenareal',tannenareal.values,'slope',slope.values)
-FROM foresttype, regions, heightlevel, additional, tannenareal, slope
+SELECT jsonb_build_object('forestType', foresttype.values,'forestEcoregion', regions.values,'heightLevel',heightlevel.values,'additional',additional.values,'tannenareal',tannenareal.values,'relief',relief.values,'slope',slope.values)
+FROM foresttype, regions, heightlevel, additional, tannenareal, relief, slope
 ) TO '/data/valid_enum.json';
 
 

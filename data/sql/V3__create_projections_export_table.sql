@@ -503,6 +503,36 @@ VALUES ('',
         'nicht relevant',
         'unknown');
 
+
+CREATE TYPE relief AS ENUM ('h_and_m','normal','w_and_s','kup','unknown');
+
+
+CREATE TABLE relief_meta (source TEXT, de TEXT,target relief);
+
+
+INSERT INTO relief_meta (source,de,target)
+VALUES ('Hang- und Muldenlage',
+        'Hang- und Muldenlage',
+        'h_and_m');
+
+
+INSERT INTO relief_meta (source,de,target)
+VALUES ('normal',
+        'normal',
+        'normal');
+
+
+INSERT INTO relief_meta (source,de,target)
+VALUES ('Kuppenlage',
+        'Kuppenlage',
+        'kup');
+
+
+INSERT INTO relief_meta (source,de,target)
+VALUES ('',
+        'nicht relevant',
+        'unknown');
+
 -- 2.) Add new column to export table using enum type.
 
 CREATE TABLE projections_export (id serial, region region,
@@ -511,4 +541,5 @@ CREATE TABLE projections_export (id serial, region region,
                                             targets foresttype,
                                             additional additional,
                                             tannenareal tannenareal,
+                                            relief relief,
                                             slope text);
