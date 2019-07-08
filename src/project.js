@@ -22,6 +22,14 @@ const conditions = [
     field: 'additional',
     values: validTypes.additional,
   },
+  {
+    field: 'tannenareal',
+    values: validTypes.tannenareal,
+  },
+  {
+    field: 'relief',
+    values: validTypes.relief,
+  },
 ];
 
 const validLanguages = ['de'];

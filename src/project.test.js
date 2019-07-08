@@ -9,10 +9,12 @@ test('valid projection', () => {
         heightLevel: 'SA',
         forestType: '60*',
         slope: '<70',
+        tannenareal: 'unknown',
+        relief: 'unknown',
       },
       'de',
     ).target,
-  ).toBe('50*');
+  ).toBe('Karbonat-Ta-Fi-Wald mit kahlem Alpendost');
 });
 
 test('invalid location values', () => {
