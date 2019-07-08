@@ -2,7 +2,7 @@ CREATE FUNCTION export_projections() RETURNS integer AS $$
 DECLARE x integer;
 BEGIN
   TRUNCATE projections_export;
-  INSERT INTO projections_export (region, heightlevel, foresttype, targets, additional, slope)
+  INSERT INTO projections_export (region, heightlevel, foresttype, targets, additional, tannenareal, slope)
     -- 3.) Match CSV values to enum values.
     WITH slopes AS (SELECT slope, array_to_string(regexp_matches(slope, '(<|>).*(\d{2})'), '') parsed_slope FROM projections_import)
        SELECT
@@ -16,7 +16,14 @@ BEGIN
         WHEN TRUE THEN targets::foresttype
         ELSE null
       END,
-      am.target AS additional,
+      CASE am.target is null
+      WHEN TRUE THEN 'unknown'
+	      ELSE am.target
+      END AS additional,
+      CASE tm.target is null
+        WHEN TRUE THEN 'unknown'
+        ELSE tm.target
+      END AS tannenareal,
       CASE slopes.slope is null
         WHEN TRUE THEN 'unknown'
         ELSE slopes.parsed_slope
@@ -27,15 +34,28 @@ BEGIN
       )))[1]::region AS region, * FROM projections_import) i
     LEFT JOIN heightlevel_meta hm ON hm.source = i.heightlevel
     LEFT JOIN additional_meta am ON lower(am.source) = lower(i.condition)
+    LEFT JOIN tannen_meta tm ON lower(tm.source) = coalesce(trim(lower(i.reliktareal)),trim(lower(i.nebenareal)),trim(lower(i.tannenareal))) --OR lower(tm.source) = trim(lower(i.nebenareal)) OR lower(tm.source) = trim(lower(i.reliktareal))
     LEFT JOIN slopes ON slopes.slope = i.slope;
 
-COPY(WITH additional AS (
+COPY (
+  WITH tannenareal AS (
+	SELECT foresttype, region,
+                 heightlevel,
+                 slope,additional,
+                 jsonb_object_agg(tannenareal, targets::text) AS json
+          FROM projections_export
+          WHERE targets IS NOT NULL
+          GROUP BY foresttype, region,
+                   heightlevel, slope, additional
+),
+additional AS (
 	SELECT foresttype, region,
                  heightlevel,
                  slope,
-                 jsonb_object_agg(coalesce(additional::text,'unknown'), targets::text) AS json
+                 jsonb_object_agg(additional,tannenareal.json) AS json
           FROM projections_export
-          WHERE targets IS NOT NULL
+          LEFT JOIN tannenareal USING (foresttype, region, heightlevel, slope, additional)
+          WHERE tannenareal.json IS NOT NULL
           GROUP BY foresttype, region,
                    heightlevel, slope
 ),slope AS
@@ -44,7 +64,7 @@ COPY(WITH additional AS (
                  jsonb_object_agg(slope, additional.json) AS json
           FROM projections_export
           LEFT JOIN additional USING (foresttype, region, heightlevel, slope)
-          WHERE targets IS NOT NULL
+          WHERE additional.json IS NOT NULL
           GROUP BY foresttype, region,
                    heightlevel),
           heightlevels AS
@@ -65,7 +85,7 @@ COPY(WITH additional AS (
      FROM projections_export
      LEFT JOIN regions USING (foresttype)
      WHERE regions.json IS NOT NULL
-) TO '/data/projections.json';
+     ) To '/data/projections.json';
 
 -- 5.) Dynamically generate json file for enum validation in the library
 COPY (
@@ -82,11 +102,14 @@ SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS values FROM heig
 additional AS (
 SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS values FROM additional_meta
 ),
+tannenareal as (
+SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS values FROM tannen_meta
+),
 slope AS (
 SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS values FROM slope_meta
 )
-SELECT jsonb_build_object('forestType', foresttype.values,'forestEcoregion', regions.values,'heightLevel',heightlevel.values,'additional',additional.values,'slope',slope.values)
-FROM foresttype, regions, heightlevel, additional,slope
+SELECT jsonb_build_object('forestType', foresttype.values,'forestEcoregion', regions.values,'heightLevel',heightlevel.values,'additional',additional.values,'tannenareal',tannenareal.values,'slope',slope.values)
+FROM foresttype, regions, heightlevel, additional, tannenareal, slope
 ) TO '/data/valid_enum.json';
 
 

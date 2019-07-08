@@ -467,6 +467,42 @@ VALUES ('',
         'not relevant',
         'unknown');
 
+
+CREATE TYPE tannenareal AS ENUM ('h_or_n','r','h_and_n','n','unknown');
+
+
+CREATE TABLE tannen_meta (source TEXT, de TEXT,target tannenareal);
+
+
+INSERT INTO tannen_meta (source,de,target)
+VALUES ('Haupt- und Nebenareal',
+        'Haupt- und Nebenareal',
+        'h_and_n');
+
+
+INSERT INTO tannen_meta (source,de,target)
+VALUES ('Reliktareal',
+        'Reliktareal',
+        'r');
+
+
+INSERT INTO tannen_meta (source,de,target)
+VALUES ('Haupt- oder Nebenareal',
+        'Haupt- oder Nebenareal',
+        'h_or_n');
+
+
+INSERT INTO tannen_meta (source,de,target)
+VALUES ('Nebenareal',
+        'Nebenareal',
+        'n');
+
+
+INSERT INTO tannen_meta (source,de,target)
+VALUES ('',
+        'nicht relevant',
+        'unknown');
+
 -- 2.) Add new column to export table using enum type.
 
 CREATE TABLE projections_export (id serial, region region,
@@ -474,4 +510,5 @@ CREATE TABLE projections_export (id serial, region region,
                                             foresttype foresttype,
                                             targets foresttype,
                                             additional additional,
+                                            tannenareal tannenareal,
                                             slope text);
