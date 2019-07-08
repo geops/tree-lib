@@ -26,7 +26,7 @@ Data for tree type projections is provided as a [CSV file](./data/projections.cs
 
 ### NaiS
 
-NaiS data is provided as CSV files and imported into the PostgreSQL database for furthter processing. New data needs to be converted to UTF-8 encoding with the following command: `iconv -f ISO-8859-1 -t UTF-8 [target].csv > [source].csv`
+NaiS data is provided as CSV files and imported into the PostgreSQL database for further processing. New data needs to be converted to UTF-8 encoding with the following command: `iconv -f ISO-8859-1 -t UTF-8 [target].csv > [source].csv`
 
 ## Bugs
 
