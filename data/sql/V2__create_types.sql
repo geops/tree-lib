@@ -336,6 +336,13 @@ VALUES ('',
 
 CREATE TABLE slope_meta (target TEXT, de TEXT);
 
+INSERT INTO slope_meta (target, de)
+VALUES ('<20',
+        '<20%');
+
+INSERT INTO slope_meta (target, de)
+VALUES ('>60',
+        '>60%');
 
 INSERT INTO slope_meta (target, de)
 VALUES ('<60',
