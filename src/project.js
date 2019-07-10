@@ -31,7 +31,7 @@ const conditions = [
     values: types.relief,
   },
 ];
-
+let iter = 0;
 function project(location) {
   const options = {};
   let target = projections;
@@ -57,6 +57,18 @@ function project(location) {
   if (typeof target === 'string') {
     newLocation.target = target;
   }
+  const height = ['OSA', 'SA', 'HM', 'OM', 'UM', 'SM'];
+  iter += 1;
+
+  if (height[iter] !== 'UM') {
+    console.log('final target ', newLocation.target);
+    return project({
+      ...location,
+      forestType: newLocation.target,
+      heightLevel: height[iter],
+    });
+  }
+
   return newLocation;
 }
 

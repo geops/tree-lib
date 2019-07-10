@@ -5,13 +5,13 @@ test('valid projection', () => {
     project({
       forestEcoregion: '1',
       additional: 'unknown',
-      heightLevel: 'SA',
-      forestType: '60*',
-      slope: '<70',
+      heightLevel: 'OSA',
+      forestType: '59L',
+      slope: 'unknown',
       tannenareal: 'unknown',
       relief: 'unknown',
     }).target,
-  ).toBe('50*');
+  ).toBe(undefined);
 });
 
 test('invalid location values', () => {
