@@ -10,14 +10,23 @@ test('valid projection', () => {
       slope: 'unknown',
       tannenareal: 'unknown',
       relief: 'unknown',
-    }).target,
-  ).toBe(undefined);
+      targetHeight: 'UM',
+    }).forestType,
+  ).toBe('1');
 });
 
 test('invalid location values', () => {
   expect(() =>
     project({ forestType: '60*', forestEcoregion: 'fooBar' }),
   ).toThrowError('fooBar for forestEcoregion is not valid.');
+
+  // expect(() =>
+  //   project({
+  //     forestType: '59L',
+  //     forestEcoregion: '1',
+  //     targetHeight: 'OUM',
+  //   }),
+  // ).toThrowError('OUM is not valid targetHeight for this region.');
 
   expect(() =>
     project({ forestType: '60*', forestEcoregion: '1', heightLevel: 'fooBar' }),

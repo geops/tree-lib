@@ -56,20 +56,22 @@ function project(location) {
   const newLocation = { ...location, options };
   if (typeof target === 'string') {
     newLocation.target = target;
+    console.log();
   }
   const height = ['OSA', 'SA', 'HM', 'OM', 'UM', 'SM'];
   iter += 1;
-
+  let result = newLocation;
   if (height[iter] !== 'UM') {
     console.log('final target ', newLocation.target);
-    return project({
+    result = project({
       ...location,
       forestType: newLocation.target,
       heightLevel: height[iter],
     });
   }
 
-  return newLocation;
+  console.log('new ', result);
+  return result;
 }
 
 export default project;

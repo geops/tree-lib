@@ -201,7 +201,7 @@ CREATE TYPE heightlevel AS ENUM ('C', 'SM', 'UM', 'OM', 'HM', 'SA', 'OSA','OUM',
 
 
 CREATE TABLE heightlevel_meta (source TEXT, target heightlevel,
-                                            de TEXT);
+                                            de TEXT,id SERIAL);
 
 
 INSERT INTO heightlevel_meta (source, target, de)
