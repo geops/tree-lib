@@ -2,16 +2,18 @@ const { project } = require('../');
 
 test('valid projection', () => {
   expect(
-    project({
-      forestEcoregion: '1',
-      additional: 'unknown',
-      heightLevel: 'OSA',
-      forestType: '59L',
-      slope: 'unknown',
-      tannenareal: 'unknown',
-      relief: 'unknown',
-      targetHeight: 'UM',
-    }).forestType,
+    project(
+      {
+        forestEcoregion: '1',
+        additional: 'unknown',
+        heightLevel: 'OSA',
+        forestType: '59L',
+        slope: 'unknown',
+        tannenareal: 'unknown',
+        relief: 'unknown',
+      },
+      'UM',
+    ).forestType,
   ).toBe('1');
 });
 

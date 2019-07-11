@@ -31,8 +31,14 @@ const conditions = [
     values: types.relief,
   },
 ];
-let iter = 0;
-function project(location) {
+
+const height = types.heightLevel
+  .map(h => h.key)
+  .splice(0, 7)
+  .reverse();
+
+let initIterValue = 0;
+function project(location, targetHeight) {
   const options = {};
   let target = projections;
   for (let i = 0; i < conditions.length; i += 1) {
@@ -56,21 +62,22 @@ function project(location) {
   const newLocation = { ...location, options };
   if (typeof target === 'string') {
     newLocation.target = target;
-    console.log();
-  }
-  const height = ['OSA', 'SA', 'HM', 'OM', 'UM', 'SM'];
-  iter += 1;
-  let result = newLocation;
-  if (height[iter] !== 'UM') {
-    console.log('final target ', newLocation.target);
-    result = project({
-      ...location,
-      forestType: newLocation.target,
-      heightLevel: height[iter],
-    });
   }
 
-  console.log('new ', result);
+  const heightLevelList = height;
+  initIterValue += 1;
+  let result = newLocation;
+  if (heightLevelList[initIterValue] !== targetHeight) {
+    result = project(
+      {
+        ...location,
+        forestType: newLocation.target,
+        heightLevel: heightLevelList[initIterValue],
+      },
+      targetHeight,
+    );
+  }
+
   return result;
 }
 
