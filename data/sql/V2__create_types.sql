@@ -201,61 +201,14 @@ CREATE TYPE heightlevel AS ENUM ('C', 'SM', 'UM', 'OM', 'HM', 'SA', 'OSA','OUM',
 
 
 CREATE TABLE heightlevel_meta (source TEXT, target heightlevel,
-                                            de TEXT,id SERIAL);
+                                            de TEXT, id SERIAL, vegetationshoehenstufen_codes integer []);
 
 
-INSERT INTO heightlevel_meta (source, target, de)
-VALUES ('collin',
-        'C'::heightlevel,
-        'Collin');
-
-
-INSERT INTO heightlevel_meta (source, target, de)
-VALUES ('submontan',
-        'SM'::heightlevel,
-        'Submontan');
-
-
-INSERT INTO heightlevel_meta (source, target, de)
-VALUES ('untermontan',
-        'UM'::heightlevel,
-        'Untermontan');
-
-
-INSERT INTO heightlevel_meta (source, target, de)
-VALUES ('obermontan',
-        'OM'::heightlevel,
-        'Obermontan');
-
-
-INSERT INTO heightlevel_meta (source, target, de)
-VALUES ('hochmontan',
-        'HM'::heightlevel,
-        'Hochmontan');
-
-
-INSERT INTO heightlevel_meta (source, target, de)
-VALUES ('subalpin',
-        'SA'::heightlevel,
-        'Subalpin');
-
-
-INSERT INTO heightlevel_meta (source, target, de)
-VALUES ('obersubalpin',
-        'OSA'::heightlevel,
-        'Obersubalpin');
-
-
-INSERT INTO heightlevel_meta (source, target, de)
-VALUES ('collin mit Buche',
-        'C_B'::heightlevel,
-        'collin mit Buche');
-
-
-INSERT INTO heightlevel_meta (source, target, de)
+INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
 VALUES ('hyperinsubrisch',
         'HY'::heightlevel,
-        'hyperinsubrisch');
+        'hyperinsubrisch',
+        '{1}');
 
 
 INSERT INTO heightlevel_meta (source, target, de)
@@ -264,10 +217,67 @@ VALUES ('collin -mediterran',
         'collin-mediterran');
 
 
-INSERT INTO heightlevel_meta (source, target, de)
+INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+VALUES ('collin',
+        'C'::heightlevel,
+        'Collin',
+        '{2}');
+
+
+INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+VALUES ('collin mit Buche',
+        'C_B'::heightlevel,
+        'collin mit Buche',
+        '{3}');
+
+
+INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+VALUES ('submontan',
+        'SM'::heightlevel,
+        'Submontan',
+        '{4}');
+
+
+INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+VALUES ('untermontan',
+        'UM'::heightlevel,
+        'Untermontan',
+        '{5}');
+
+
+INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+VALUES ('obermontan',
+        'OM'::heightlevel,
+        'Obermontan',
+        '{6}');
+
+
+INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
 VALUES ('ober- und untermontan',
         'OUM'::heightlevel,
-        'unter-/obermontan');
+        'unter-/obermontan',
+        '{7}');
+
+
+INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+VALUES ('hochmontan',
+        'HM'::heightlevel,
+        'Hochmontan',
+        '{8}');
+
+
+INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+VALUES ('subalpin',
+        'SA'::heightlevel,
+        'Subalpin',
+        '{9}');
+
+
+INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+VALUES ('obersubalpin',
+        'OSA'::heightlevel,
+        'Obersubalpin',
+        '{10}');
 
 ----------------------------------------------
 -- recommendationtype
