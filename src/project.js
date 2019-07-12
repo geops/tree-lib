@@ -32,15 +32,17 @@ const conditions = [
   },
 ];
 
-const height = types.heightLevel
-  .map(h => h.key)
-  .splice(0, 7)
+const heightLevelList = types.heightLevel
+  .filter(e => e.id !== 1 && e.id !== 2 && e.id !== 4 && e.id !== 8)
+  .map(e => e.key)
   .reverse();
 
-let initIterValue = 0;
-function project(location, targetHeight) {
+const getNextHeigtLevel = currentHeightLevel =>
+  heightLevelList[heightLevelList.indexOf(currentHeightLevel) + 1];
+
+function projectionReducer(location) {
   const options = {};
-  let target = projections;
+  let forestType = projections;
   for (let i = 0; i < conditions.length; i += 1) {
     const { field, values } = conditions[i];
     const value = location[field];
@@ -50,35 +52,39 @@ function project(location, targetHeight) {
       throw new Error(`${value} for ${field} is not valid.`);
     }
 
-    options[field] = Object.keys(target);
+    options[field] = Object.keys(forestType);
 
-    if (value && target[value]) {
-      target = target[value];
+    if (value && forestType[value]) {
+      forestType = forestType[value];
     } else {
       // Location does not provide any more values for conditions.
       break;
     }
   }
-  const newLocation = { ...location, options };
-  if (typeof target === 'string') {
-    newLocation.target = target;
-  }
 
-  const heightLevelList = height;
-  initIterValue += 1;
-  let result = newLocation;
-  if (heightLevelList[initIterValue] !== targetHeight) {
-    result = project(
-      {
-        ...location,
-        forestType: newLocation.target,
-        heightLevel: heightLevelList[initIterValue],
-      },
-      targetHeight,
+  if (typeof forestType !== 'string') {
+    throw new Error(
+      'No height Level found. Try with another Target height Level.',
     );
   }
+  const heightLevel = getNextHeigtLevel(location.heightLevel);
+  return { ...location, options, forestType, heightLevel };
+}
 
-  return result;
+function project(location, targetHeightLevel) {
+  if (types.heightLevel.find(v => v.key === targetHeightLevel) === undefined) {
+    throw new Error(`${targetHeightLevel} for targetHeightLevel is not valid.`);
+  }
+
+  const heightLevelPointer = heightLevelList.indexOf(location.heightLevel);
+  let newLocation;
+  if (heightLevelList[heightLevelPointer] !== targetHeightLevel) {
+    newLocation = projectionReducer(location);
+    if (newLocation.heightLevel !== targetHeightLevel) {
+      newLocation = project(newLocation, targetHeightLevel);
+    }
+  }
+  return newLocation;
 }
 
 export default project;
