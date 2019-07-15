@@ -1,4 +1,4 @@
-import projections from '../data/projections.json';
+import projections from '../data/projections_test.json';
 import types from '../data/types.json';
 
 const conditions = [
