@@ -34,6 +34,23 @@ test('valid multi heightLevel projection', () => {
   ).toBe('1h');
 });
 
+test('check primitive datatype for projected forestType', () => {
+  expect(
+    typeof project(
+      {
+        forestEcoregion: '1',
+        additional: 'unknown',
+        heightLevel: 'OM',
+        forestType: '1h',
+        slope: 'unknown',
+        tannenareal: 'unknown',
+        relief: 'unknown',
+      },
+      'UM',
+    ).forestType,
+  ).toBe('string');
+});
+
 test('invalid location values', () => {
   expect(() =>
     project({ forestType: '60*', forestEcoregion: 'fooBar' }, 'UM'),
