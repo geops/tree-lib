@@ -287,7 +287,7 @@ CREATE TYPE recommendationtype AS ENUM ('0', '1', '2', '3');
 ----------------------------------------------
 -- region
 
-CREATE TYPE region AS ENUM ('J', 'M', '1', '2a', '2b', '3', '4', '5');
+CREATE TYPE region AS ENUM ('J', 'M', '1', '2a', '2b', '3', '4', '5a', '5b', '5c');
 
 
 CREATE TABLE region_meta (target region,
@@ -311,12 +311,12 @@ VALUES ('1'::region,
 
 INSERT INTO region_meta (target, de)
 VALUES ('2a'::region,
-        'Nördliche Zwischenalpen mit Buchen');
+        'Nördliche Zwischenalpen mit Buche');
 
 
 INSERT INTO region_meta (target, de)
 VALUES ('2b'::region,
-        'Nördliche Zwischenalpen ohne Buchen');
+        'Nördliche Zwischenalpen ohne Buche');
 
 
 INSERT INTO region_meta (target, de)
@@ -330,8 +330,18 @@ VALUES ('4'::region,
 
 
 INSERT INTO region_meta (target, de)
-VALUES ('5'::region,
-        'Südliche Randalpen');
+VALUES ('5a'::region,
+        'Südliche Randalpen mit Fichte');
+
+
+INSERT INTO region_meta (target, de)
+VALUES ('5b'::region,
+        'Südliche Randalpen mit Fichtenvorposten');
+
+
+INSERT INTO region_meta (target, de)
+VALUES ('5c'::region,
+        'Südliche Randalpen ohne Fichte');
 
 ----------------------------------------------
 -- relief
