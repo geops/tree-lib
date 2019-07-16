@@ -34,23 +34,6 @@ test('valid multi heightLevel projection', () => {
   ).toBe('1h');
 });
 
-test('valid data type for projection', () => {
-  expect(
-    typeof project(
-      {
-        forestEcoregion: '1',
-        additional: 'unknown',
-        heightLevel: 'OM',
-        forestType: '1h',
-        slope: 'unknown',
-        tannenareal: 'unknown',
-        relief: 'unknown',
-      },
-      'UM',
-    ).forestType,
-  ).toBe('string');
-});
-
 test('invalid location values', () => {
   expect(() =>
     project({ forestType: '60*', forestEcoregion: 'fooBar' }, 'UM'),
@@ -75,8 +58,25 @@ test('invalid location values', () => {
   ).toThrowError('55 collin for forestType is not valid.');
 });
 
-test('valid target heightLevel', () => {
+test('invalid target heightLevel', () => {
   expect(() => project({}, 'fooBar')).toThrowError(
     'fooBar for targetHeightLevel is not valid.',
   );
+});
+
+test('missing projection for valid location and targetHeight', () => {
+  expect(() =>
+    project(
+      {
+        forestEcoregion: '1',
+        additional: 'unknown',
+        heightLevel: 'OSA',
+        forestType: '58L',
+        slope: 'unknown',
+        tannenareal: 'unknown',
+        relief: 'unknown',
+      },
+      'HM',
+    ),
+  ).toThrowError('Found no projection for selected targetHeightLevel.');
 });

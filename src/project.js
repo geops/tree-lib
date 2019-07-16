@@ -63,7 +63,7 @@ function projectionReducer(location) {
   }
 
   if (typeof forestType !== 'string') {
-    throw new Error('Found no projection for selected target height.');
+    throw new Error('Found no projection for selected targetHeightLevel.');
   }
 
   const heightLevel = getNextHeigtLevel(location.heightLevel);
