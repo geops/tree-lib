@@ -287,51 +287,57 @@ CREATE TYPE recommendationtype AS ENUM ('0', '1', '2', '3');
 ----------------------------------------------
 -- region
 
-CREATE TYPE region AS ENUM ('J', 'M', '1', '2a', '2b', '3', '4', '5');
-
-
-CREATE TABLE region_meta (target region,
-                          de TEXT);
+CREATE TABLE region_meta (target TEXT, de TEXT);
 
 
 INSERT INTO region_meta (target, de)
-VALUES ('J'::region,
+VALUES ('J'::TEXT,
         'Jura');
 
 
 INSERT INTO region_meta (target, de)
-VALUES ('M'::region,
+VALUES ('M'::TEXT,
         'Mittelland');
 
 
 INSERT INTO region_meta (target, de)
-VALUES ('1'::region,
+VALUES ('1'::TEXT,
         'Nördliche Randalpen');
 
 
 INSERT INTO region_meta (target, de)
-VALUES ('2a'::region,
+VALUES ('2a'::TEXT,
         'Nördliche Zwischenalpen mit Buchen');
 
 
 INSERT INTO region_meta (target, de)
-VALUES ('2b'::region,
+VALUES ('2b'::TEXT,
         'Nördliche Zwischenalpen ohne Buchen');
 
 
 INSERT INTO region_meta (target, de)
-VALUES ('3'::region,
+VALUES ('3'::TEXT,
         'Kontinentale Hochalpen');
 
 
 INSERT INTO region_meta (target, de)
-VALUES ('4'::region,
+VALUES ('4'::TEXT,
         'Südliche Zwischenalpen');
 
 
 INSERT INTO region_meta (target, de)
-VALUES ('5'::region,
-        'Südliche Randalpen');
+VALUES ('5a'::TEXT,
+        'Südliche Randalpen mit Fichte');
+
+
+INSERT INTO region_meta (target, de)
+VALUES ('5a'::TEXT,
+        'Südliche Randalpen mit Fichtenvorposten');
+
+
+INSERT INTO region_meta (target, de)
+VALUES ('5b'::TEXT,
+        'Südliche Randalpen ohne Fichte');
 
 ----------------------------------------------
 -- relief
