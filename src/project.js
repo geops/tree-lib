@@ -63,9 +63,7 @@ function projectionReducer(location) {
   }
 
   if (typeof forestType !== 'string') {
-    throw new Error(
-      'primitive datatype is not valid for projected forestType.',
-    );
+    throw new Error('Found no projection for selected target height.');
   }
 
   const heightLevel = getNextHeigtLevel(location.heightLevel);

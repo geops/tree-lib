@@ -34,7 +34,7 @@ test('valid multi heightLevel projection', () => {
   ).toBe('1h');
 });
 
-test('check primitive datatype for projected forestType', () => {
+test('valid data type for projection', () => {
   expect(
     typeof project(
       {
