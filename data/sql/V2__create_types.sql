@@ -195,89 +195,64 @@ LEFT JOIN
          FROM nat_naistyp_mstr) mstr ON trim(lower(mstr.naistyp_c)) = lower(foo.foresttype::text);
 
 ----------------------------------------------
--- heightlevel
+-- altitudinal zones
 
-CREATE TYPE heightlevel AS ENUM ('C', 'SM', 'UM', 'OM', 'HM', 'SA', 'OSA','OUM','C_B','HY','C_M');
-
-
-CREATE TABLE heightlevel_meta (source TEXT, target heightlevel,
-                                            de TEXT, id SERIAL, vegetationshoehenstufen_codes integer []);
+CREATE TABLE altitudinal_zone_meta (projection TEXT, code integer);
 
 
-INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+INSERT INTO altitudinal_zone_meta (projection, code)
 VALUES ('hyperinsubrisch',
-        'HY'::heightlevel,
-        'hyperinsubrisch',
-        '{1}');
+        '1');
 
 
-INSERT INTO heightlevel_meta (source, target, de)
+INSERT INTO altitudinal_zone_meta (projection, code)
 VALUES ('collin -mediterran',
-        'C_M'::heightlevel,
-        'collin-mediterran');
+        '0');
 
 
-INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+INSERT INTO altitudinal_zone_meta (projection, code)
 VALUES ('collin',
-        'C'::heightlevel,
-        'Collin',
-        '{2}');
+        '2');
 
 
-INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+INSERT INTO altitudinal_zone_meta (projection, code)
 VALUES ('collin mit Buche',
-        'C_B'::heightlevel,
-        'collin mit Buche',
-        '{3}');
+        '3');
 
 
-INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+INSERT INTO altitudinal_zone_meta (projection, code)
 VALUES ('submontan',
-        'SM'::heightlevel,
-        'Submontan',
-        '{4}');
+        '4');
 
 
-INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+INSERT INTO altitudinal_zone_meta (projection, code)
 VALUES ('untermontan',
-        'UM'::heightlevel,
-        'Untermontan',
-        '{5}');
+        '5');
 
 
-INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+INSERT INTO altitudinal_zone_meta (projection, code)
 VALUES ('obermontan',
-        'OM'::heightlevel,
-        'Obermontan',
-        '{6}');
+        '6');
 
 
-INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+INSERT INTO altitudinal_zone_meta (projection, code)
 VALUES ('ober- und untermontan',
-        'OUM'::heightlevel,
-        'unter-/obermontan',
-        '{7}');
+        '7');
 
 
-INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+INSERT INTO altitudinal_zone_meta (projection, code)
 VALUES ('hochmontan',
-        'HM'::heightlevel,
-        'Hochmontan',
-        '{8}');
+        '8');
 
 
-INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+INSERT INTO altitudinal_zone_meta (projection, code)
 VALUES ('subalpin',
-        'SA'::heightlevel,
-        'Subalpin',
-        '{9}');
+        '9');
 
 
-INSERT INTO heightlevel_meta (source, target, de, vegetationshoehenstufen_codes)
+INSERT INTO altitudinal_zone_meta (projection, code)
 VALUES ('obersubalpin',
-        'OSA'::heightlevel,
-        'Obersubalpin',
-        '{10}');
+        '10');
 
 ----------------------------------------------
 -- recommendationtype
