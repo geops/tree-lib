@@ -387,22 +387,22 @@ VALUES ('unknown',
         'nicht relevant');
 
 ----------------------------------------------
--- tannenareal
+-- silver fir area
 
-CREATE TABLE silver_fir_areas_meta (source TEXT, code_ta INTEGER);
+CREATE TABLE silver_fir_areas_meta (projection TEXT, code_ta INTEGER);
 
 
-INSERT INTO silver_fir_areas_meta (source, code_ta)
+INSERT INTO silver_fir_areas_meta (projection, code_ta)
 VALUES ('Hauptareal',
         '1');
 
 
-INSERT INTO silver_fir_areas_meta (source, code_ta)
+INSERT INTO silver_fir_areas_meta (projection, code_ta)
 VALUES ('Nebenareal',
         '2');
 
 
-INSERT INTO silver_fir_areas_meta (source, code_ta)
+INSERT INTO silver_fir_areas_meta (projection, code_ta)
 VALUES ('Reliktareal',
         '3');
 
