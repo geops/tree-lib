@@ -197,7 +197,7 @@ LEFT JOIN
 ----------------------------------------------
 -- altitudinal zones
 
-CREATE TABLE altitudinal_zone_meta (projection TEXT, code integer);
+CREATE TABLE altitudinal_zone_meta (projection TEXT, code INTEGER);
 
 
 INSERT INTO altitudinal_zone_meta (projection, code)
@@ -389,40 +389,22 @@ VALUES ('unknown',
 ----------------------------------------------
 -- tannenareal
 
-CREATE TYPE tannenareal AS ENUM ('h_or_n','r','h_and_n','n','unknown');
+CREATE TABLE silver_fir_areas_meta (source TEXT, code_ta INTEGER);
 
 
-CREATE TABLE tannen_meta (source TEXT, de TEXT,target tannenareal);
+INSERT INTO silver_fir_areas_meta (source, code_ta)
+VALUES ('Hauptareal',
+        '1');
 
 
-INSERT INTO tannen_meta (source,de,target)
-VALUES ('Haupt- und Nebenareal',
-        'Haupt- und Nebenareal',
-        'h_and_n');
-
-
-INSERT INTO tannen_meta (source,de,target)
-VALUES ('Reliktareal',
-        'Reliktareal',
-        'r');
-
-
-INSERT INTO tannen_meta (source,de,target)
-VALUES ('Haupt- oder Nebenareal',
-        'Haupt- oder Nebenareal',
-        'h_or_n');
-
-
-INSERT INTO tannen_meta (source,de,target)
+INSERT INTO silver_fir_areas_meta (source, code_ta)
 VALUES ('Nebenareal',
-        'Nebenareal',
-        'n');
+        '2');
 
 
-INSERT INTO tannen_meta (source,de,target)
-VALUES ('',
-        'nicht relevant',
-        'unknown');
+INSERT INTO silver_fir_areas_meta (source, code_ta)
+VALUES ('Reliktareal',
+        '3');
 
 ----------------------------------------------
 -- treetype

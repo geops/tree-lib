@@ -25,9 +25,9 @@ SELECT region AS forest_ecoregion,
            WHEN TRUE THEN 'unknown'
            ELSE am.target
        END AS additional,
-       CASE tm.target is null
-           WHEN TRUE THEN 'unknown'
-           ELSE tm.target
+       CASE tm.code_ta is null
+           WHEN TRUE THEN '0'
+           ELSE tm.code_ta
        END AS tannenareal,
        CASE rm.target is null
            WHEN TRUE THEN 'unknown'
@@ -38,14 +38,14 @@ SELECT region AS forest_ecoregion,
            ELSE slopes.parsed_slope
        END AS slope
 FROM
-    (SELECT (regexp_matches(regexp_split_to_table(regexp_replace(regexp_replace(coalesce(standortsregion,regions), '2(,|\s)', '2a, 2b,'), 'R5', '5a, 5b,'), ',\s?'),
+    (SELECT (regexp_matches(regexp_split_to_table(regexp_replace(regexp_replace(coalesce(standortsregion,regions), '2(,|\s)', '2a, 2b,'), 'R5', '5a, 5b,'),',\s?'),
                                 (SELECT string_agg(subcode, '|'::text)
                                  FROM forest_ecoregions)))[1] AS region,
             *
      FROM projections_import) i
 LEFT JOIN altitudinal_zone_meta alz ON alz.projection::text = lower(i.heightlevel)
 LEFT JOIN additional_meta am ON lower(am.source) = lower(i.condition)
-LEFT JOIN tannen_meta tm ON lower(tm.source) = coalesce(trim(lower(i.reliktareal)),trim(lower(i.nebenareal)),trim(lower(i.tannenareal)))
+LEFT JOIN silver_fir_areas_meta tm ON lower(tm.source) = coalesce(trim(lower(i.reliktareal)),trim(lower(i.nebenareal)),trim(lower(i.tannenareal)))
 LEFT JOIN relief_meta rm ON rm.source = i.relief
 LEFT JOIN slopes ON slopes.slope = i.slope;
 
