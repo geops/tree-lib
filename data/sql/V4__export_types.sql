@@ -8,9 +8,9 @@ COPY
       values
       FROM treetype_meta),
         forest_ecoregions AS
-     (SELECT json_agg(jsonb_build_object('key', subcode, 'de', region_de)) AS
+     (SELECT json_agg(jsonb_build_object('key', subcode, 'de', projection)) AS
       values
-      FROM forest_ecoregions),
+      FROM forest_ecoregions_meta),
         altitudinal_zone AS
      (SELECT json_agg(jsonb_build_object('key', code, 'de', projection, 'id', id)) AS
       values
