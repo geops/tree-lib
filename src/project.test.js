@@ -9,7 +9,7 @@ test('valid projection', () => {
         altitudinalZone: '6',
         forestType: '1h',
         slope: 'unknown',
-        silverFirAreas: '0',
+        silverFirArea: '0',
         relief: 'unknown',
       },
       '5',
@@ -17,7 +17,7 @@ test('valid projection', () => {
   ).toBe('1');
 });
 
-test('valid multi altitudinalZone projection', () => {
+test('valid multi altitudinal zone projection', () => {
   expect(
     project(
       {
@@ -26,7 +26,7 @@ test('valid multi altitudinalZone projection', () => {
         altitudinalZone: '10',
         forestType: '59L',
         slope: 'unknown',
-        silverFirAreas: '0',
+        silverFirArea: '0',
         relief: 'unknown',
       },
       '6',
@@ -60,11 +60,11 @@ test('invalid location values', () => {
 
 test('invalid target altitudinalZone', () => {
   expect(() => project({}, 'fooBar')).toThrowError(
-    'fooBar for targetaltitudinalZone is not valid.',
+    'fooBar for target altitudinal zone is not valid.',
   );
 });
 
-test('missing projection for valid location and targetaltitudinalZone', () => {
+test('missing projection for valid location and target altitudinal zone', () => {
   expect(() =>
     project(
       {
@@ -73,10 +73,10 @@ test('missing projection for valid location and targetaltitudinalZone', () => {
         altitudinalZone: '10',
         forestType: '58L',
         slope: 'unknown',
-        silverFirAreas: '0',
+        silverFirArea: '0',
         relief: 'unknown',
       },
       '8',
     ),
-  ).toThrowError('Found no projection for selected targetaltitudinalZone.');
+  ).toThrowError('Found no projection for selected target altitudinal zone.');
 });

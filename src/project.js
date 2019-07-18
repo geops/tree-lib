@@ -23,7 +23,7 @@ const conditions = [
     values: types.additional,
   },
   {
-    field: 'silverFirAreas',
+    field: 'silverFirArea',
     values: types.silverFirAreas,
   },
   {
@@ -34,7 +34,7 @@ const conditions = [
 
 const altitudinalZoneList = types.altitudinalZones
   .filter(e => e.id !== 1 && e.id !== 2 && e.id !== 4 && e.id !== 8)
-  .map(e => e.key)
+  .map(e => e.code)
   .reverse();
 
 const getNextHeigtLevel = currentaltitudinalZone =>
@@ -48,7 +48,7 @@ function projectionReducer(location) {
     const value = location[field];
 
     // Validation
-    if (value && values && values.find(v => v.key === value) === undefined) {
+    if (value && values && values.find(v => v.code === value) === undefined) {
       throw new Error(`${value} for ${field} is not valid.`);
     }
 
@@ -63,7 +63,9 @@ function projectionReducer(location) {
   }
 
   if (typeof forestType !== 'string') {
-    throw new Error('Found no projection for selected targetaltitudinalZone.');
+    throw new Error(
+      'Found no projection for selected target altitudinal zone.',
+    );
   }
 
   const altitudinalZone = getNextHeigtLevel(location.altitudinalZone);
@@ -72,11 +74,11 @@ function projectionReducer(location) {
 
 function project(location, targetaltitudinalZone) {
   if (
-    types.altitudinalZones.find(v => v.key === targetaltitudinalZone) ===
+    types.altitudinalZones.find(v => v.code === targetaltitudinalZone) ===
     undefined
   ) {
     throw new Error(
-      `${targetaltitudinalZone} for targetaltitudinalZone is not valid.`,
+      `${targetaltitudinalZone} for target altitudinal zone is not valid.`,
     );
   }
 

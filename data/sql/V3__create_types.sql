@@ -260,61 +260,6 @@ VALUES ('obersubalpin',
 CREATE TYPE recommendationtype AS ENUM ('0', '1', '2', '3');
 
 ----------------------------------------------
--- forestEcoregions
-
-CREATE TABLE forest_ecoregions_meta (projection TEXT, subcode TEXT);
-
-
-INSERT INTO forest_ecoregions_meta (projection, subcode)
-VALUES ('Jura',
-        'J');
-
-
-INSERT INTO forest_ecoregions_meta (projection,subcode)
-VALUES ('Mittelland',
-        'M');
-
-
-INSERT INTO forest_ecoregions_meta (projection,subcode)
-VALUES ('Nördliche Randalpen',
-        '1');
-
-
-INSERT INTO forest_ecoregions_meta (projection,subcode)
-VALUES ('Nördliche Zwischenalpen mit Buchen',
-        '2a');
-
-
-INSERT INTO forest_ecoregions_meta (projection,subcode)
-VALUES ('Nördliche Zwischenalpen ohne Buchen',
-        '2b');
-
-
-INSERT INTO forest_ecoregions_meta (projection,subcode)
-VALUES ('Kontinentale Hochalpen',
-        '3');
-
-
-INSERT INTO forest_ecoregions_meta (projection,subcode)
-VALUES ('Südliche Zwischenalpen',
-        '4');
-
-
-INSERT INTO forest_ecoregions_meta (projection,subcode)
-VALUES ('Südliche Randalpen mit Fichte',
-        '5a');
-
-
-INSERT INTO forest_ecoregions_meta (projection,subcode)
-VALUES ('Südliche Randalpen mit Fichtenvorposten',
-        '5a');
-
-
-INSERT INTO forest_ecoregions_meta (projection,subcode)
-VALUES ('Südliche Randalpen ohne Fichte',
-        '5b');
-
-----------------------------------------------
 -- relief
 
 CREATE TYPE relief AS ENUM ('h_and_m','normal','w_and_s','kup','unknown');
@@ -389,25 +334,25 @@ VALUES ('unknown',
 ----------------------------------------------
 -- silver fir areaS
 
-CREATE TABLE silver_fir_areas_meta (projection TEXT, code_ta TEXT);
+CREATE TABLE silver_fir_area_meta (projection TEXT, code_ta TEXT);
 
 
-INSERT INTO silver_fir_areas_meta (projection, code_ta)
+INSERT INTO silver_fir_area_meta (projection, code_ta)
 VALUES ('Hauptareal',
         '1');
 
 
-INSERT INTO silver_fir_areas_meta (projection, code_ta)
+INSERT INTO silver_fir_area_meta (projection, code_ta)
 VALUES ('Nebenareal',
         '2');
 
 
-INSERT INTO silver_fir_areas_meta (projection, code_ta)
+INSERT INTO silver_fir_area_meta (projection, code_ta)
 VALUES ('Reliktareal',
         '3');
 
 
-INSERT INTO silver_fir_areas_meta (projection, code_ta)
+INSERT INTO silver_fir_area_meta (projection, code_ta)
 VALUES ('nicht relevant',
         '0');
 
