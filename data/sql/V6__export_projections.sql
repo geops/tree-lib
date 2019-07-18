@@ -12,8 +12,6 @@ WITH slopes AS
      FROM projections_import)
 SELECT region AS forest_ecoregion,
        alt_zone.code AS altitudinal_zone,
-       tan_splited,
-       tannenareal as original,
        CASE regexp_replace(foresttype, ' collin', '')::name = any(enum_range(null::foresttype)::name[])
            WHEN TRUE THEN regexp_replace(foresttype, ' collin', '')::foresttype
            ELSE null
@@ -26,10 +24,10 @@ SELECT region AS forest_ecoregion,
            WHEN TRUE THEN 'unknown'
            ELSE am.target
        END AS additional,
-       CASE tan_splited is null
+       CASE tannenareal is null
            WHEN TRUE THEN '0'
            ELSE sil_fir.code_ta
-       END AS tannenareal,
+       END AS silver_fir_area,
        CASE rm.target is null
            WHEN TRUE THEN 'unknown'
            ELSE rm.target
@@ -148,4 +146,3 @@ COPY
      FROM projections_export
      LEFT JOIN forest_ecoregions USING (foresttype)
      WHERE forest_ecoregions.json IS NOT NULL) To '/data/projections.json';
-

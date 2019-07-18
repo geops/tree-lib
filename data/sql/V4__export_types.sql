@@ -7,22 +7,22 @@ COPY
      (SELECT json_agg(jsonb_build_object('key', target::text::int, 'de', de)) AS
       values
       FROM treetype_meta),
-        regions AS
-     (SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS
+        forest_ecoregions AS
+     (SELECT json_agg(jsonb_build_object('key', subcode, 'de', region_de)) AS
       values
-      FROM region_meta),
-        heightlevel AS
-     (SELECT json_agg(jsonb_build_object('key', target, 'de', de,'id',id)) AS
+      FROM forest_ecoregions),
+        altitudinal_zone AS
+     (SELECT json_agg(jsonb_build_object('key', code, 'de', projection, 'id', id)) AS
       values
-      FROM heightlevel_meta),
+      FROM altitudinal_zone_meta),
         additional AS
      (SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS
       values
       FROM additional_meta),
-        tannenareal as
-     (SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS
+        silver_fir_areas as
+     (SELECT json_agg(jsonb_build_object('key', code_ta, 'de', projection)) AS
       values
-      FROM tannen_meta),
+      FROM silver_fir_areas_meta),
         relief as
      (SELECT json_agg(jsonb_build_object('key', target, 'de', de)) AS
       values
@@ -32,18 +32,18 @@ COPY
       values
       FROM slope_meta) SELECT jsonb_build_object('forestType', foresttype.
                                                  values,'treeType', treetype.
-                                                 values,'forestEcoregion', regions.
-                                                 values,'heightLevel',heightlevel.
+                                                 values,'forestEcoregion', forest_ecoregions.
+                                                 values,'altitudinalZones',altitudinal_zone.
                                                  values,'additional',additional.
-                                                 values,'tannenareal',tannenareal.
+                                                 values,'silverFirAreas',silver_fir_areas.
                                                  values,'relief',relief.
                                                  values,'slope',slope.
                                                  values)
    FROM foresttype,
         treetype,
-        regions,
-        heightlevel,
+        forest_ecoregions,
+        altitudinal_zone,
         additional,
-        tannenareal,
+        silver_fir_areas,
         relief,
         slope) TO '/data/types.json';

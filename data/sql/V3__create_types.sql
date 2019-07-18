@@ -197,60 +197,60 @@ LEFT JOIN
 ----------------------------------------------
 -- altitudinal zones
 
-CREATE TABLE altitudinal_zone_meta (projection TEXT, code INTEGER);
+CREATE TABLE altitudinal_zone_meta (projection TEXT, code TEXT, id SERIAL);
 
 
-INSERT INTO altitudinal_zone_meta (projection, code)
+INSERT INTO altitudinal_zone_meta (projection,code)
 VALUES ('hyperinsubrisch',
         '1');
 
 
-INSERT INTO altitudinal_zone_meta (projection, code)
+INSERT INTO altitudinal_zone_meta (projection,code)
 VALUES ('collin -mediterran',
         '0');
 
 
-INSERT INTO altitudinal_zone_meta (projection, code)
+INSERT INTO altitudinal_zone_meta (projection,code)
 VALUES ('collin',
         '2');
 
 
-INSERT INTO altitudinal_zone_meta (projection, code)
+INSERT INTO altitudinal_zone_meta (projection,code)
 VALUES ('collin mit Buche',
         '3');
 
 
-INSERT INTO altitudinal_zone_meta (projection, code)
+INSERT INTO altitudinal_zone_meta (projection,code)
 VALUES ('submontan',
         '4');
 
 
-INSERT INTO altitudinal_zone_meta (projection, code)
+INSERT INTO altitudinal_zone_meta (projection,code)
 VALUES ('untermontan',
         '5');
 
 
-INSERT INTO altitudinal_zone_meta (projection, code)
+INSERT INTO altitudinal_zone_meta (projection,code)
 VALUES ('obermontan',
         '6');
 
 
-INSERT INTO altitudinal_zone_meta (projection, code)
+INSERT INTO altitudinal_zone_meta (projection,code)
 VALUES ('ober- und untermontan',
         '7');
 
 
-INSERT INTO altitudinal_zone_meta (projection, code)
+INSERT INTO altitudinal_zone_meta (projection,code)
 VALUES ('hochmontan',
         '8');
 
 
-INSERT INTO altitudinal_zone_meta (projection, code)
+INSERT INTO altitudinal_zone_meta (projection,code)
 VALUES ('subalpin',
         '9');
 
 
-INSERT INTO altitudinal_zone_meta (projection, code)
+INSERT INTO altitudinal_zone_meta (projection,code)
 VALUES ('obersubalpin',
         '10');
 
@@ -258,61 +258,6 @@ VALUES ('obersubalpin',
 -- recommendationtype
 
 CREATE TYPE recommendationtype AS ENUM ('0', '1', '2', '3');
-
-----------------------------------------------
--- region
-
-CREATE TABLE region_meta (target TEXT, de TEXT);
-
-
-INSERT INTO region_meta (target, de)
-VALUES ('J'::TEXT,
-        'Jura');
-
-
-INSERT INTO region_meta (target, de)
-VALUES ('M'::TEXT,
-        'Mittelland');
-
-
-INSERT INTO region_meta (target, de)
-VALUES ('1'::TEXT,
-        'Nördliche Randalpen');
-
-
-INSERT INTO region_meta (target, de)
-VALUES ('2a'::TEXT,
-        'Nördliche Zwischenalpen mit Buchen');
-
-
-INSERT INTO region_meta (target, de)
-VALUES ('2b'::TEXT,
-        'Nördliche Zwischenalpen ohne Buchen');
-
-
-INSERT INTO region_meta (target, de)
-VALUES ('3'::TEXT,
-        'Kontinentale Hochalpen');
-
-
-INSERT INTO region_meta (target, de)
-VALUES ('4'::TEXT,
-        'Südliche Zwischenalpen');
-
-
-INSERT INTO region_meta (target, de)
-VALUES ('5a'::TEXT,
-        'Südliche Randalpen mit Fichte');
-
-
-INSERT INTO region_meta (target, de)
-VALUES ('5a'::TEXT,
-        'Südliche Randalpen mit Fichtenvorposten');
-
-
-INSERT INTO region_meta (target, de)
-VALUES ('5b'::TEXT,
-        'Südliche Randalpen ohne Fichte');
 
 ----------------------------------------------
 -- relief
@@ -387,9 +332,9 @@ VALUES ('unknown',
         'nicht relevant');
 
 ----------------------------------------------
--- silver fir area
+-- silver fir areaS
 
-CREATE TABLE silver_fir_areas_meta (projection TEXT, code_ta INTEGER);
+CREATE TABLE silver_fir_areas_meta (projection TEXT, code_ta TEXT);
 
 
 INSERT INTO silver_fir_areas_meta (projection, code_ta)
@@ -405,6 +350,11 @@ VALUES ('Nebenareal',
 INSERT INTO silver_fir_areas_meta (projection, code_ta)
 VALUES ('Reliktareal',
         '3');
+
+
+INSERT INTO silver_fir_areas_meta (projection, code_ta)
+VALUES ('nicht relevant',
+        '0');
 
 ----------------------------------------------
 -- treetype
