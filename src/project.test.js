@@ -45,7 +45,7 @@ describe('Test for input values', () => {
   });
 });
 
-describe('Test for outpu values', () => {
+describe('Test for output values', () => {
   test('check for unknown as only available option', () => {
     expect(
       project(
