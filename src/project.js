@@ -73,6 +73,10 @@ function projectionReducer(location) {
 }
 
 function project(location, targetaltitudinalZone) {
+  const additional = location.additional || 'unknown';
+  const slope = location.slope || 'unknown';
+  const relief = location.relief || 'unknown';
+  const locationParam = { ...location, additional, slope, relief };
   if (
     types.altitudinalZones.find(v => v.code === targetaltitudinalZone) ===
     undefined
@@ -88,7 +92,7 @@ function project(location, targetaltitudinalZone) {
 
   let newLocation;
   if (altitudinalZoneList[altitudinalZonePointer] !== targetaltitudinalZone) {
-    newLocation = projectionReducer(location);
+    newLocation = projectionReducer(locationParam);
     if (newLocation.altitudinalZone !== targetaltitudinalZone) {
       newLocation = project(newLocation, targetaltitudinalZone);
     }

@@ -5,12 +5,9 @@ test('valid projection', () => {
     project(
       {
         forestEcoregion: '1',
-        additional: 'unknown',
         altitudinalZone: '6',
         forestType: '1h',
-        slope: 'unknown',
         silverFirArea: '0',
-        relief: 'unknown',
       },
       '5',
     ).forestType,
@@ -22,12 +19,9 @@ test('valid multi altitudinal zone projection', () => {
     project(
       {
         forestEcoregion: '1',
-        additional: 'unknown',
         altitudinalZone: '10',
         forestType: '59L',
-        slope: 'unknown',
         silverFirArea: '0',
-        relief: 'unknown',
       },
       '6',
     ).forestType,
@@ -69,12 +63,9 @@ test('missing projection for valid location and target altitudinal zone', () => 
     project(
       {
         forestEcoregion: '1',
-        additional: 'unknown',
         altitudinalZone: '10',
         forestType: '58L',
-        slope: 'unknown',
         silverFirArea: '0',
-        relief: 'unknown',
       },
       '8',
     ),
