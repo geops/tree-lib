@@ -192,9 +192,9 @@ COPY
       FROM slope_meta) SELECT jsonb_build_object('forestType', foresttype.
                                                  values,'treeType', treetype.
                                                  values,'forestEcoregion', forest_ecoregions.
-                                                 values,'altitudinalZones',altitudinal_zone.
+                                                 values,'altitudinalZone',altitudinal_zone.
                                                  values,'additional',additional.
-                                                 values,'silverFirAreas',silver_fir_areas.
+                                                 values,'silverFirArea',silver_fir_areas.
                                                  values,'relief',relief.
                                                  values,'slope',slope.
                                                  values)

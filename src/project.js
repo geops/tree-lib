@@ -12,7 +12,7 @@ const conditions = [
   },
   {
     field: 'altitudinalZone',
-    values: types.altitudinalZones,
+    values: types.altitudinalZone,
   },
   {
     field: 'slope',
@@ -24,7 +24,7 @@ const conditions = [
   },
   {
     field: 'silverFirArea',
-    values: types.silverFirAreas,
+    values: types.silverFirArea,
   },
   {
     field: 'relief',
@@ -32,7 +32,7 @@ const conditions = [
   },
 ];
 
-const altitudinalZoneList = types.altitudinalZones
+const altitudinalZoneList = types.altitudinalZone
   .filter(e => e.id !== 1 && e.id !== 2 && e.id !== 4 && e.id !== 8)
   .map(e => e.code)
   .reverse();
@@ -42,6 +42,7 @@ const getNextHeigtLevel = currentaltitudinalZone =>
 
 function projectionReducer(location) {
   const newLocation = { ...location, options: {} };
+  delete newLocation.forestType;
   let forestType = projections;
   for (let i = 0; i < conditions.length; i += 1) {
     const { field, values } = conditions[i];
@@ -75,7 +76,7 @@ function projectionReducer(location) {
 
 function project(location, targetaltitudinalZone) {
   if (
-    types.altitudinalZones.find(v => v.code === targetaltitudinalZone) ===
+    types.altitudinalZone.find(v => v.code === targetaltitudinalZone) ===
     undefined
   ) {
     throw new Error(
