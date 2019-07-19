@@ -74,30 +74,42 @@ function projectionReducer(location) {
   return newLocation;
 }
 
-function project(location, targetaltitudinalZone) {
+function project(location = {}, targetaltitudinalZone) {
+  const altitudinalZonePointer = altitudinalZoneList.indexOf(
+    location.altitudinalZone,
+  );
+
   if (
+    targetaltitudinalZone &&
     types.altitudinalZone.find(v => v.code === targetaltitudinalZone) ===
-    undefined
+      undefined
   ) {
     throw new Error(
       `${targetaltitudinalZone} for target altitudinal zone is not valid.`,
     );
   }
 
-  const altitudinalZonePointer = altitudinalZoneList.indexOf(
-    location.altitudinalZone,
-  );
-
   let newLocation;
-  if (altitudinalZoneList[altitudinalZonePointer] !== targetaltitudinalZone) {
+
+  if (
+    altitudinalZoneList[altitudinalZonePointer] !== targetaltitudinalZone ||
+    targetaltitudinalZone === undefined
+  ) {
     newLocation = projectionReducer(location);
-    if (newLocation.altitudinalZone !== targetaltitudinalZone) {
+    if (
+      newLocation.altitudinalZone !== undefined &&
+      targetaltitudinalZone !== undefined &&
+      newLocation.altitudinalZone !== targetaltitudinalZone
+    ) {
       newLocation = project(newLocation, targetaltitudinalZone);
     }
   }
-  newLocation.options.targetAltitudinalZoneList = altitudinalZoneList.slice(
-    altitudinalZonePointer + 1,
-  );
+
+  if (altitudinalZonePointer !== -1) {
+    newLocation.options.targetAltitudinalZone = altitudinalZoneList.slice(
+      altitudinalZonePointer + 1,
+    );
+  }
   return newLocation;
 }
 

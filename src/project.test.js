@@ -119,7 +119,11 @@ describe('Test for output values', () => {
           forestType: '47H',
         },
         '4',
-      ).options.targetAltitudinalZoneList,
+      ).options.targetAltitudinalZone,
     ).toMatchObject(['5', '4', '2']);
   });
+});
+
+test('empty location value and target altitudinal Zone ', () => {
+  expect(project().options.forestType.length).toBe(199);
 });
