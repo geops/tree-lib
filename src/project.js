@@ -41,7 +41,7 @@ const getNextHeigtLevel = currentaltitudinalZone =>
   altitudinalZoneList[altitudinalZoneList.indexOf(currentaltitudinalZone) + 1];
 
 function projectionReducer(location) {
-  const options = {};
+  const newLocation = { ...location, options: {} };
   let forestType = projections;
   for (let i = 0; i < conditions.length; i += 1) {
     const { field, values } = conditions[i];
@@ -52,31 +52,28 @@ function projectionReducer(location) {
       throw new Error(`${value} for ${field} is not valid.`);
     }
 
-    options[field] = Object.keys(forestType);
+    newLocation.options[field] = Object.keys(forestType);
 
     if (value && forestType[value]) {
       forestType = forestType[value];
+    } else if (forestType.unknown && Object.keys(forestType).length === 1) {
+      forestType = forestType.unknown;
+      newLocation[field] = 'unknown';
     } else {
       // Location does not provide any more values for conditions.
       break;
     }
   }
 
-  if (typeof forestType !== 'string') {
-    throw new Error(
-      'Found no projection for selected target altitudinal zone.',
-    );
+  if (typeof forestType === 'string') {
+    newLocation.forestType = forestType;
   }
 
-  const altitudinalZone = getNextHeigtLevel(location.altitudinalZone);
-  return { ...location, options, forestType, altitudinalZone };
+  newLocation.altitudinalZone = getNextHeigtLevel(location.altitudinalZone);
+  return newLocation;
 }
 
 function project(location, targetaltitudinalZone) {
-  const additional = location.additional || 'unknown';
-  const slope = location.slope || 'unknown';
-  const relief = location.relief || 'unknown';
-  const locationParam = { ...location, additional, slope, relief };
   if (
     types.altitudinalZones.find(v => v.code === targetaltitudinalZone) ===
     undefined
@@ -92,7 +89,7 @@ function project(location, targetaltitudinalZone) {
 
   let newLocation;
   if (altitudinalZoneList[altitudinalZonePointer] !== targetaltitudinalZone) {
-    newLocation = projectionReducer(locationParam);
+    newLocation = projectionReducer(location);
     if (newLocation.altitudinalZone !== targetaltitudinalZone) {
       newLocation = project(newLocation, targetaltitudinalZone);
     }
