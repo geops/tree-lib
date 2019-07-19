@@ -354,7 +354,7 @@ VALUES ('Reliktareal',
 
 INSERT INTO silver_fir_area_meta (projection, code_ta)
 VALUES ('nicht relevant',
-        '0');
+        'unknown');
 
 ----------------------------------------------
 -- treetype

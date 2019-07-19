@@ -30,7 +30,7 @@ SELECT region AS forest_ecoregion,
            ELSE add_meta.target
        END AS additional,
        CASE tannenareal is null
-           WHEN TRUE THEN '0'
+           WHEN TRUE THEN 'unknown'
            ELSE sil_fir_meta.code_ta
        END AS silver_fir_area,
        CASE relief_meta.target is null
