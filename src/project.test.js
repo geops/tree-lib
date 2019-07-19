@@ -109,4 +109,17 @@ describe('Test for output values', () => {
       ).forestType,
     ).toBe('1');
   });
+
+  test('valid list of target altitudinal zone', () => {
+    expect(
+      project(
+        {
+          forestEcoregion: '1',
+          altitudinalZone: '6',
+          forestType: '47H',
+        },
+        '4',
+      ).options.targetAltitudinalZoneList,
+    ).toMatchObject(['5', '4', '2']);
+  });
 });

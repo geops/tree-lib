@@ -95,6 +95,9 @@ function project(location, targetaltitudinalZone) {
       newLocation = project(newLocation, targetaltitudinalZone);
     }
   }
+  newLocation.options.targetAltitudinalZoneList = altitudinalZoneList.slice(
+    altitudinalZonePointer + 1,
+  );
   return newLocation;
 }
 
