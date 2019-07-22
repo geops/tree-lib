@@ -37,12 +37,15 @@ const altitudinalZoneList = types.altitudinalZone
   .map(e => e.code)
   .reverse();
 
-const getNextHeigtLevel = currentaltitudinalZone =>
+/* Provides the list of altitudinal Zones as target Altitudinal zones that are immediately 
+after the currently chosen altitudinal Zone. */
+const getNextAltitudinalZone = currentaltitudinalZone =>
   altitudinalZoneList[altitudinalZoneList.indexOf(currentaltitudinalZone) + 1];
 
-function projectionReducer(location, targetaltitudinalZone) {
+function projectionReducer(location, targetAltitudinalZone) {
   const newLocation = { ...location, options: {} };
   delete newLocation.forestType;
+
   let forestType = projections;
   for (let i = 0; i < conditions.length; i += 1) {
     const { field, values } = conditions[i];
@@ -70,42 +73,45 @@ function projectionReducer(location, targetaltitudinalZone) {
     newLocation.forestType = forestType;
   }
 
-  if (location.altitudinalZone && targetaltitudinalZone !== undefined) {
-    newLocation.altitudinalZone = getNextHeigtLevel(location.altitudinalZone);
+  if (location.altitudinalZone && targetAltitudinalZone !== undefined) {
+    newLocation.altitudinalZone = getNextAltitudinalZone(
+      location.altitudinalZone,
+    );
   } else {
     newLocation.altitudinalZone = location.altitudinalZone;
   }
+
   return newLocation;
 }
 
-function project(location = {}, targetaltitudinalZone) {
+function project(location = {}, targetAltitudinalZone) {
   const altitudinalZonePointer = altitudinalZoneList.indexOf(
     location.altitudinalZone,
   );
 
   if (
-    targetaltitudinalZone &&
-    types.altitudinalZone.find(v => v.code === targetaltitudinalZone) ===
+    targetAltitudinalZone &&
+    types.altitudinalZone.find(v => v.code === targetAltitudinalZone) ===
       undefined
   ) {
     throw new Error(
-      `${targetaltitudinalZone} for target altitudinal zone is not valid.`,
+      `${targetAltitudinalZone} for target altitudinal zone is not valid.`,
     );
   }
 
   let newLocation;
 
   if (
-    altitudinalZoneList[altitudinalZonePointer] !== targetaltitudinalZone ||
-    targetaltitudinalZone === undefined
+    altitudinalZoneList[altitudinalZonePointer] !== targetAltitudinalZone ||
+    targetAltitudinalZone === undefined
   ) {
-    newLocation = projectionReducer(location, targetaltitudinalZone);
+    newLocation = projectionReducer(location, targetAltitudinalZone);
     if (
       newLocation.altitudinalZone !== undefined &&
-      targetaltitudinalZone !== undefined &&
-      newLocation.altitudinalZone !== targetaltitudinalZone
+      targetAltitudinalZone !== undefined &&
+      newLocation.altitudinalZone !== targetAltitudinalZone
     ) {
-      newLocation = project(newLocation, targetaltitudinalZone);
+      newLocation = project(newLocation, targetAltitudinalZone);
     }
   }
 

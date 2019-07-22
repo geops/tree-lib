@@ -71,7 +71,7 @@ describe('Test for output values', () => {
     ).toBe(undefined);
   });
 
-  test('option field with values for complete location values', () => {
+  test('option field with values for incomplete location values', () => {
     expect(
       project(
         {
@@ -103,11 +103,11 @@ describe('Test for output values', () => {
         {
           forestEcoregion: '1',
           altitudinalZone: '10',
-          forestType: '59L',
+          forestType: '59V',
         },
-        '6',
+        '8',
       ).forestType,
-    ).toBe('1');
+    ).toBe('55');
   });
 
   test('valid list of target altitudinal zone', () => {
