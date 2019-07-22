@@ -43,7 +43,7 @@ const getNextAltitudinalZone = currentaltitudinalZone =>
   altitudinalZoneList[altitudinalZoneList.indexOf(currentaltitudinalZone) + 1];
 
 function projectionReducer(location, targetAltitudinalZone) {
-  const newLocation = { ...location, options: {} };
+  const newLocation = { ...location, options: location.options || {} };
   delete newLocation.forestType;
 
   let forestType = projections;
@@ -56,7 +56,9 @@ function projectionReducer(location, targetAltitudinalZone) {
       throw new Error(`${value} for ${field} is not valid.`);
     }
 
-    newLocation.options[field] = Object.keys(forestType);
+    newLocation.options[field] = newLocation.options[field]
+      ? newLocation.options[field].concat(Object.keys(forestType))
+      : Object.keys(forestType);
 
     if (value && forestType[value]) {
       forestType = forestType[value];
@@ -120,7 +122,15 @@ function project(location = {}, targetAltitudinalZone) {
       altitudinalZonePointer + 1,
     );
   }
+  // let former = location.altitudinalZone;
 
+  // if (former !== JSON.stringify(newLocation.options.altitudinalZone)) {
+  //   console.log(
+  //     'newLocation ',
+  //     newLocation.options.altitudinalZone.concat(former).reverse(),
+  //   );
+  // }
+  console.log('hola ', newLocation);
   return newLocation;
 }
 
