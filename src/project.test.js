@@ -140,3 +140,16 @@ test('valid list of preceding keys for multi-step options', () => {
     ).options.altitudinalZone,
   ).toMatchObject(['9', '10']);
 });
+
+test('valid list of preceding keys for multi-step options if prior field is undefined', () => {
+  expect(
+    project(
+      {
+        forestEcoregion: '1',
+        altitudinalZone: undefined,
+        forestType: '59V',
+      },
+      '8',
+    ).options.altitudinalZone,
+  ).toMatchObject(['10']);
+});
