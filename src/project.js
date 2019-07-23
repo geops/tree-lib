@@ -57,7 +57,9 @@ function projectionReducer(location, targetAltitudinalZone) {
     }
 
     newLocation.options[field] = newLocation.options[field]
-      ? newLocation.options[field].concat(Object.keys(forestType))
+      ? Array.from(
+          new Set(newLocation.options[field].concat(Object.keys(forestType))),
+        ).sort((a, b) => a - b)
       : Object.keys(forestType);
 
     if (value && forestType[value]) {
@@ -122,15 +124,6 @@ function project(location = {}, targetAltitudinalZone) {
       altitudinalZonePointer + 1,
     );
   }
-
-  newLocation.options = {
-    ...newLocation.options,
-    forestEcoregion: Array.from(new Set(newLocation.options.forestEcoregion)),
-    slope: Array.from(new Set(newLocation.options.slope)),
-    additional: Array.from(new Set(newLocation.options.additional)),
-    silverFirArea: Array.from(new Set(newLocation.options.silverFirArea)),
-    relief: Array.from(new Set(newLocation.options.relief)),
-  };
 
   return newLocation;
 }
