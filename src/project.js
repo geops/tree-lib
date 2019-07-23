@@ -122,15 +122,16 @@ function project(location = {}, targetAltitudinalZone) {
       altitudinalZonePointer + 1,
     );
   }
-  // let former = location.altitudinalZone;
 
-  // if (former !== JSON.stringify(newLocation.options.altitudinalZone)) {
-  //   console.log(
-  //     'newLocation ',
-  //     newLocation.options.altitudinalZone.concat(former).reverse(),
-  //   );
-  // }
-  console.log('hola ', newLocation);
+  newLocation.options = {
+    ...newLocation.options,
+    forestEcoregion: Array.from(new Set(newLocation.options.forestEcoregion)),
+    slope: Array.from(new Set(newLocation.options.slope)),
+    additional: Array.from(new Set(newLocation.options.additional)),
+    silverFirArea: Array.from(new Set(newLocation.options.silverFirArea)),
+    relief: Array.from(new Set(newLocation.options.relief)),
+  };
+
   return newLocation;
 }
 
