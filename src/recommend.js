@@ -15,12 +15,8 @@ function concatTreeSpecies(...treeSp) {
   return Array.from(new Set(treeSp[0].reduce((a, b) => a.concat(b), [])));
 }
 
-function filterTreeSpecies(...treeSp) {
-  const forestType1Concated = concatTreeSpecies(treeSp[0]);
-  const forestType2Concated = concatTreeSpecies(treeSp[1]);
-  return forestType1Concated.filter(
-    tree => !forestType2Concated.includes(tree),
-  );
+function filterTreeSpecies(treeSp1, treeSp2) {
+  return treeSp1.filter(tree => !treeSp2.includes(tree));
 }
 
 function recommend(forestType1, forestType2, future) {
@@ -43,19 +39,24 @@ function recommend(forestType1, forestType2, future) {
     );
     if (future) {
       result = {
-        positive: filterTreeSpecies(one, one2),
-        neutral: filterTreeSpecies(two, two2),
-        negative: filterTreeSpecies(three, three2),
+        one: filterTreeSpecies(one, one2),
+        two: filterTreeSpecies(two, two2),
+        three: filterTreeSpecies(three, three2),
       };
     } else {
       result = {
-        positive: concatTreeSpecies([one, one2, two, two2]),
-        neutral: concatTreeSpecies([three, three2]),
-        negative: filterTreeSpecies([one, two, three], [one2, two2, three2]),
+        one: concatTreeSpecies([one, one2, two, two2]),
+        two: concatTreeSpecies([three, three2]),
+        three: filterTreeSpecies(
+          concatTreeSpecies([one, two, three]),
+          concatTreeSpecies([one2, two2, three2]),
+        ),
       };
     }
   }
 
+  const { one: positive, two: neutral, three: negative } = result;
+  result = { positive, neutral, negative };
   return result;
 }
 

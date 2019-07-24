@@ -29,9 +29,9 @@ describe('Test for input values', () => {
 describe('Test for output values', () => {
   test('valid single forest type recommendations', () => {
     expect(recommend('60')).toStrictEqual({
-      one: [302800],
-      two: [402300],
-      three: [800, 25400, 60400, 60500, 227200, 363700],
+      positive: [302800],
+      neutral: [402300],
+      negative: [800, 25400, 60400, 60500, 227200, 363700],
     });
   });
 
@@ -51,6 +51,14 @@ describe('Test for output values', () => {
         402200,
       ],
       negative: [25400, 60500],
+    });
+  });
+
+  test('valid multiple forest type recommendations with future flag', () => {
+    expect(recommend('60', '50', true)).toStrictEqual({
+      positive: [],
+      neutral: [],
+      negative: [800, 25400, 60500],
     });
   });
 });
