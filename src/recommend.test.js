@@ -1,7 +1,7 @@
 const { recommend } = require('../');
 
 describe('Test for input values', () => {
-  test('at least one forest Type required', () => {
+  test('at least one forest type required', () => {
     expect(() => recommend()).toThrowError(
       `at least one forest type is required to get the recommendation of tree species`,
     );
@@ -9,25 +9,25 @@ describe('Test for input values', () => {
 
   test('invalid forestType1', () => {
     expect(() => recommend('963D')).toThrowError(
-      `963D is not a valid forest Type`,
+      `963D is not a valid forest type`,
     );
   });
 
   test('invalid forestType2', () => {
     expect(() => recommend('60', '963D')).toThrowError(
-      `963D is not a valid forest Type`,
+      `963D is not a valid forest type`,
     );
   });
 
-  test('invalid argument type for future flag', () => {
-    expect(() => recommend('60', '963D')).toThrowError(
-      `963D is not a valid forest Type`,
+  test('invalid data type for future flag', () => {
+    expect(() => recommend('60', '50', 56)).toThrowError(
+      `expected boolean type for future flag`,
     );
   });
 });
 
 describe('Test for output values', () => {
-  test('valid single forest Type recommendations', () => {
+  test('valid single forest type recommendations', () => {
     expect(recommend('60')).toStrictEqual({
       one: [302800],
       three: [800, 25400, 60400, 60500, 227200, 363700],
@@ -35,7 +35,7 @@ describe('Test for output values', () => {
     });
   });
 
-  test('valid multiple forest Type recommendations', () => {
+  test('valid multiple forest type recommendations', () => {
     expect(recommend('60', '50')).toStrictEqual({
       one: [302800, 100],
       two: [402300, 800],
@@ -52,11 +52,5 @@ describe('Test for output values', () => {
         402200,
       ],
     });
-  });
-
-  test('invalid input type of future flag', () => {
-    expect(() => recommend('60', '50', 56)).toThrowError(
-      `expected boolean type for future flag`,
-    );
   });
 });

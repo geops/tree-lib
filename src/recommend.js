@@ -3,7 +3,7 @@ import types from '../data/types.json';
 
 function recommendTreeSpecies(forestType) {
   if (types.forestType.find(v => v.code === forestType) === undefined) {
-    throw new Error(`${forestType} is not a valid forest Type`);
+    throw new Error(`${forestType} is not a valid forest type`);
   }
   const [, treeSpecies] = Object.entries(recommendations).find(
     t => t[0] === forestType,
@@ -28,9 +28,7 @@ function recommend(forestType1, forestType2, future) {
     throw new Error(`expected boolean type for future flag`);
   }
 
-  let result;
-
-  result = recommendTreeSpecies(forestType1);
+  let result = recommendTreeSpecies(forestType1);
 
   const { one, two, three } = result;
   if (forestType2) {
