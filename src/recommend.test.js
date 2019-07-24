@@ -47,4 +47,12 @@ describe('Test for output values', () => {
       ],
     });
   });
+
+  test('valid multiple forestType recommendations with future flag', () => {
+    expect(recommend('60', '50', true)).toStrictEqual({
+      one: [100],
+      two: [800],
+      three: [25300, 174200, 317500, 402200],
+    });
+  });
 });

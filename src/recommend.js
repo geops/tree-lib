@@ -8,9 +8,11 @@ function recommendTreeSpecies(forestType) {
   return treeSpecies;
 }
 
-function concatTreeSpecies(treeSp1, treeSp2) {
-  return Array.from(new Set([...treeSp1, ...treeSp2]));
-}
+const concatTreeSpecies = (treeSp1, treeSp2) =>
+  Array.from(new Set([...treeSp1, ...treeSp2]));
+
+const filterTreeSpecies = (treeSp1, treeSp2) =>
+  treeSp2.filter(tree => !treeSp1.includes(tree));
 
 function validateForestType(forestType) {
   if (types.forestType.find(v => v.code === forestType) === undefined) {
@@ -18,7 +20,7 @@ function validateForestType(forestType) {
   }
 }
 
-function recommend(forestType1, forestType2) {
+function recommend(forestType1, forestType2, future) {
   let result;
   if (!forestType1) {
     throw new Error(
@@ -31,9 +33,18 @@ function recommend(forestType1, forestType2) {
     result = recommendTreeSpecies(forestType1);
   }
 
-  if (forestType1 && forestType2) {
+  const { one, two, three } = result;
+  if (forestType1 && forestType2 && future) {
+    const { one: one2, two: two2, three: three2 } = recommendTreeSpecies(
+      forestType2,
+    );
+    result = {
+      one: filterTreeSpecies(one, one2),
+      two: filterTreeSpecies(two, two2),
+      three: filterTreeSpecies(three, three2),
+    };
+  } else if (forestType1 && forestType2) {
     validateForestType(forestType2);
-    const { one, two, three } = result;
     const { one: one2, two: two2, three: three2 } = recommendTreeSpecies(
       forestType2,
     );
