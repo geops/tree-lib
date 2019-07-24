@@ -12,7 +12,7 @@ function recommendTreeSpecies(forestType) {
 }
 
 function concatTreeSpecies(...treeSp) {
-  return Array.from(new Set(treeSp[0].reduce((a, b) => a.concat(b), [])));
+  return Array.from(new Set([].concat(...treeSp)));
 }
 
 function filterTreeSpecies(treeSp1, treeSp2) {
@@ -45,11 +45,11 @@ function recommend(forestType1, forestType2, future) {
       };
     } else {
       result = {
-        one: concatTreeSpecies([one, one2, two, two2]),
-        two: concatTreeSpecies([three, three2]),
+        one: concatTreeSpecies(one, one2, two, two2),
+        two: concatTreeSpecies(three, three2),
         three: filterTreeSpecies(
-          concatTreeSpecies([one, two, three]),
-          concatTreeSpecies([one2, two2, three2]),
+          concatTreeSpecies(one, two, three),
+          concatTreeSpecies(one2, two2, three2),
         ),
       };
     }
