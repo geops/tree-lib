@@ -119,7 +119,6 @@ function project(location = {}, targetAltitudinalZone) {
     }
   }
 
-  // add newLocation for condition checking
   if (newLocation && altitudinalZonePointer !== -1) {
     newLocation.options.targetAltitudinalZone = altitudinalZoneList.slice(
       altitudinalZonePointer + 1,
