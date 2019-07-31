@@ -43,7 +43,7 @@ const getNextAltitudinalZone = currentaltitudinalZone =>
   altitudinalZoneList[altitudinalZoneList.indexOf(currentaltitudinalZone) + 1];
 
 function projectionReducer(location, targetAltitudinalZone) {
-  const newLocation = { ...location, options: location.options || {} };
+  let newLocation = { ...location, options: location.options || {} };
   delete newLocation.forestType;
 
   let forestType = projections;
@@ -84,7 +84,9 @@ function projectionReducer(location, targetAltitudinalZone) {
   } else {
     newLocation.altitudinalZone = location.altitudinalZone;
   }
-
+  if (location.altitudinalZone === targetAltitudinalZone) {
+    newLocation = { ...location, options: newLocation.options };
+  }
   return newLocation;
 }
 
@@ -117,9 +119,14 @@ function project(location = {}, targetAltitudinalZone) {
     ) {
       newLocation = project(newLocation, targetAltitudinalZone);
     }
+  } else if (
+    altitudinalZoneList[altitudinalZonePointer] === targetAltitudinalZone
+  ) {
+    newLocation = projectionReducer(location, targetAltitudinalZone);
   }
 
-  if (altitudinalZonePointer !== -1) {
+  // add newLocation for condition checking
+  if (newLocation && altitudinalZonePointer !== -1) {
     newLocation.options.targetAltitudinalZone = altitudinalZoneList.slice(
       altitudinalZonePointer + 1,
     );
