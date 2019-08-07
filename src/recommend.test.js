@@ -19,12 +19,6 @@ describe('Test for input values', () => {
     );
   });
 
-  test('invalid forestType for recommendation', () => {
-    expect(() => recommend('AV')).toThrowError(
-      `AV is not a valid forest type for recommendation`,
-    );
-  });
-
   test('invalid data type for future flag', () => {
     expect(() => recommend('60', '50', 56)).toThrowError(
       `expected boolean type for future flag`,
@@ -98,6 +92,15 @@ describe('Test for output values', () => {
       positive: [60500, 302800],
       neutral: [402300],
       negative: [305500],
+      attention: [],
+    });
+  });
+
+  test('forest type with no recommendation currently', () => {
+    expect(recommend('AV', '7S collin')).toStrictEqual({
+      positive: [],
+      neutral: [],
+      negative: [],
       attention: [],
     });
   });
