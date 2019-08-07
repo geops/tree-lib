@@ -5,6 +5,13 @@ function recommendTreeSpecies(forestType) {
   if (types.forestType.find(v => v.code === forestType) === undefined) {
     throw new Error(`${forestType} is not a valid forest type`);
   }
+
+  if (Object.keys(recommendations).find(v => v === forestType) === undefined) {
+    throw new Error(
+      `${forestType} is not a valid forest type for recommendation`,
+    );
+  }
+
   const [, treeSpecies] = Object.entries(recommendations).find(
     t => t[0] === forestType,
   );
