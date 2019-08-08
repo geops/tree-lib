@@ -73,7 +73,11 @@ function projectionReducer(location, targetAltitudinalZone) {
   }
 
   if (typeof forestType === 'string') {
-    newLocation.forestType = forestType;
+    newLocation.forestType =
+      targetAltitudinalZone === undefined ||
+      location.altitudinalZone === targetAltitudinalZone
+        ? newLocation.forestType
+        : forestType;
   }
 
   if (targetAltitudinalZone !== location.altitudinalZone) {
@@ -125,6 +129,11 @@ function project(location = {}, targetAltitudinalZone) {
   newLocation.options.forestType = types.forestType
     .filter(ft => newLocation.options.forestType.includes(ft.code))
     .map(ft => ft.code);
+
+  newLocation.options.targetAltitudinalZone = [
+    location.altitudinalZone,
+    ...newLocation.options.targetAltitudinalZone,
+  ];
 
   return newLocation;
 }
