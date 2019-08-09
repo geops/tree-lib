@@ -130,10 +130,9 @@ function project(location = {}, targetAltitudinalZone) {
     .filter(ft => newLocation.options.forestType.includes(ft.code))
     .map(ft => ft.code);
 
-  newLocation.options.targetAltitudinalZone = [
-    location.altitudinalZone,
-    ...newLocation.options.targetAltitudinalZone,
-  ];
+  newLocation.options.targetAltitudinalZone = location.altitudinalZone
+    ? [location.altitudinalZone, ...newLocation.options.targetAltitudinalZone]
+    : [];
 
   return newLocation;
 }
