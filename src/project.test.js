@@ -155,9 +155,15 @@ describe('Test for output values', () => {
 
   test('undefined forest Type', () => {
     expect(
-      project({
-        forestType: '33V',
-      }).forestType,
+      project(
+        {
+          forestType: '33V',
+          forestEcoregion: 'M',
+          altitudinalZone: '40',
+          silverFirArea: '1',
+        },
+        '40',
+      ).forestType,
     ).toBe(undefined);
   });
 });

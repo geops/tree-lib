@@ -28,8 +28,7 @@ const validate = (field, value, values) => {
   }
 };
 
-/* Provides the list of altitudinal Zones as target Altitudinal zones that are immediately 
-after the currently chosen altitudinal Zone. */
+/* TargetAltitude = Altitudinal zones that are immediately after the currently chosen altitudinal Zone. */
 const nextAltitudinalZone = current =>
   altitudeList[altitudeList.indexOf(current) + 1];
 
@@ -64,10 +63,12 @@ function projectionReducer(location, targetAltitude) {
       newLocation.forestType = forestType;
     }
     newLocation.altitudinalZone = nextAltitudinalZone(location.altitudinalZone);
-  } else if (location.altitudinalZone === undefined) {
+  } else if (
+    newLocation.options.forestEcoregion &&
+    !newLocation.options.forestEcoregion.includes(location.forestEcoregion)
+  ) {
     newLocation.forestType = undefined;
   }
-
   return newLocation;
 }
 
@@ -81,7 +82,6 @@ function project(location = {}, targetAltitude) {
   if (targetAltitude && newLocation.altitudinalZone !== targetAltitude) {
     newLocation = project(newLocation, targetAltitude);
   }
-
   if (newLocation && altitudePointer !== -1) {
     newLocation.options.targetAltitudinalZone = [
       location.altitudinalZone,
