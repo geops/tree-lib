@@ -40,7 +40,7 @@ describe('Test for input values', () => {
 
   test('invalid target altitudinalZone', () => {
     expect(() => project({}, 'fooBar')).toThrowError(
-      'fooBar for target altitudinal zone is not valid.',
+      'fooBar for targetAltitudinalZone is not valid.',
     );
   });
 
