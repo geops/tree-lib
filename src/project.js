@@ -64,6 +64,8 @@ function projectionReducer(location, targetAltitude) {
       newLocation.forestType = forestType;
     }
     newLocation.altitudinalZone = nextAltitudinalZone(location.altitudinalZone);
+  } else if (location.altitudinalZone === undefined) {
+    newLocation.forestType = undefined;
   }
 
   return newLocation;
