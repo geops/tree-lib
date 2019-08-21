@@ -1,6 +1,7 @@
 .netlify
 dist
 node_modules
+doc/build
 data/spatial/export
 data/spatial/tiles/fonts
 data/spatial/tiles/tree

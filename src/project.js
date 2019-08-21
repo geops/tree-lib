@@ -74,6 +74,35 @@ function projectionReducer(location, targetAltitude) {
   return newLocation;
 }
 
+/** This function returns the projected forest type for the given forest type
+ * @param {Object} location Input for project function
+ * @param {string} location.forestType Forest type for which the projection is to be made
+ * @param {string} location.forestEcoregion Forest Ecoregion of the chosen forest type
+ * @param {number} location.altitudinalZone Altitudinal Zone of the chosen forest type
+ * @param {number} targetAltitude Numeric code of height level based on map.geo.admin.ch
+ * @return {Object} newLocation
+ */
+
+/** Returned object of project function
+ * @typedef {Object} newLocation
+ * @property {string} additional additional condition used for the projection. Default value is 'unknown'.
+ * @property {string} altitudinalZone altitudinal zone of the projected forest type.
+ * @property {string} forestEcoregion same forest ecoregion used as the input.
+ * @property {string} forestType projected forest type.
+ * @property {string} relief relief condition used for the projection. Default value is 'unknown'.
+ * @property {string} silverFirArea silverFirArea condition used for the projection.
+ * @property {string} slope slope condition used for the projection. Default value is 'unknown'.
+ * @property {object} options
+ * @property {Array} options.additional list of additional conditions available for chosen forest type.
+ * @property {Array} options.altitudinalZone list of chosen altitudinal zone.
+ * @property {Array} options.forestEcoregion list of forest ecoregions available for chosen forest type.
+ * @property {Array} options.forestType list of forest type available for projection.
+ * @property {Array} options.relief list of relief conditions available for chosen forest type.
+ * @property {Array} options.silverFirArea list of silverFirArea condition for chosen forest type.
+ * @property {Array} options.slope list of slope condtion for chosen forest type.
+ * @property {Array} options.targetAltitudinalZone list of altitudinal zones available for chosen forest type.
+ */
+
 function project(location = {}, targetAltitude) {
   const altitudePointer = altitudeList.indexOf(location.altitudinalZone);
   const altitudinalZone = targetAltitude || location.altitudinalZone;

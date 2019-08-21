@@ -37,6 +37,21 @@ function filterFourFrom123(previousResult) {
   return result;
 }
 
+/** This function recommend tree species for projected forest type. Tree species are categorized as Fördern, Mitnehmen, Reduzieren, and Achtung.
+ * @param {string} forestType1 Forest type for which projection is to be made.
+ * @param {string} forestType2 Projected forest type.
+ * @param {boolean} [future=false] Flag to denote if the recommendation is to be made for today's or future scenario. Default is today.
+ * @return {Object} recommendation
+ */
+
+/** Returned object of recommend function
+ * @typedef {Object} recommendation
+ * @property {Array} positive list of tree species for Fördern category.
+ * @property {Array} neutral list of tree species for Mitnehmen category.
+ * @property {Array} negative list of tree species for Reduzieren category.
+ * @property {Array} attention list of tree species for Achtung category.
+ */
+
 function recommend(forestType1, forestType2, future) {
   if (!forestType1) {
     throw new Error(
