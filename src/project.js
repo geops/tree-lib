@@ -93,9 +93,12 @@ function project(location = {}, targetAltitude) {
   }
 
   // Replace alphanumeric sorting with custom sorting based on database export
-  newLocation.options.forestType = types.forestType
-    .filter(ft => newLocation.options.forestType.includes(ft.code))
-    .map(ft => ft.code);
+  // This concatenation distort the sorted array as per above comment. Fix: Maybe Re-do logic in database might help
+  const concatedForestType = [
+    ...newLocation.options.forestType,
+    ...types.forestType.map(ft => ft.code),
+  ];
+  newLocation.options.forestType = Array.from(new Set(concatedForestType));
 
   return newLocation;
 }
