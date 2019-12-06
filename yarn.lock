@@ -2130,6 +2130,11 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
+commander@^2.11.0:
+  version "2.20.3"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
+  integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
+
 commander@^2.19.0, commander@^2.20.0, commander@^2.3.0, commander@^2.9.0, commander@~2.20.0:
   version "2.20.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
@@ -3877,6 +3882,15 @@ finalhandler@~1.1.2:
     parseurl "~1.3.3"
     statuses "~1.5.0"
     unpipe "~1.0.0"
+
+find-process@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/find-process/-/find-process-1.4.3.tgz#25f9105dc32e42abad4636752c37c51cd57dce45"
+  integrity sha512-+IA+AUsQCf3uucawyTwMWcY+2M3FXq3BRvw3S+j5Jvydjk31f/+NPWpYZOJs+JUs2GvxH4Yfr6Wham0ZtRLlPA==
+  dependencies:
+    chalk "^2.0.1"
+    commander "^2.11.0"
+    debug "^2.6.8"
 
 find-up@^2.0.0, find-up@^2.1.0:
   version "2.1.0"
@@ -6822,9 +6836,9 @@ netlify-cli-logo@^1.0.0:
     chalk "^2.4.2"
 
 netlify-cli@^2.12.0:
-  version "2.21.0"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-2.21.0.tgz#b5b6335139719b506f2aafb7520e6865ae1b9cdb"
-  integrity sha512-zUVPXHo1HwyXtsuKny4W1cKWBLAxsTMkdDsbSCpTK/2bwZgixUXWxk2bT/xMBYH+9Xb0SOnhfeEiDYqQ7uRB1Q==
+  version "2.23.0"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-2.23.0.tgz#e203995df64c3ff848f11df1781d9df1e3c0da66"
+  integrity sha512-4Ca6fhCNWiEvucNvRRbUQjhAI6S2YsJ97bQZ0x2sQxS89HMP+SfDrBZR7c01tKd+qJtUfAwZMg4cT57spbjYlw==
   dependencies:
     "@iarna/toml" "^2.2.3"
     "@netlify/build" "^0.1.7"
@@ -6858,6 +6872,7 @@ netlify-cli@^2.12.0:
     execa "^2.0.3"
     express "^4.17.1"
     express-logging "^1.1.1"
+    find-process "^1.4.3"
     find-up "^3.0.0"
     fs-extra "^8.1.0"
     fuzzy "^0.1.3"
@@ -6883,6 +6898,7 @@ netlify-cli@^2.12.0:
     minimist "^1.2.0"
     netlify "^2.4.8"
     netlify-cli-logo "^1.0.0"
+    netlify-redirect-parser "^1.0.3"
     netlify-redirector "^0.1.0"
     node-fetch "^2.6.0"
     npm-packlist "^1.4.4"
@@ -6904,6 +6920,13 @@ netlify-cli@^2.12.0:
     wait-port "^0.2.2"
     wrap-ansi "^6.0.0"
     write-file-atomic "^3.0.0"
+
+netlify-redirect-parser@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/netlify-redirect-parser/-/netlify-redirect-parser-1.0.3.tgz#ce7dba7f9aef2c0bd60c35ce585f8360a33671a8"
+  integrity sha512-NDQKgrN5DgWIYvEyVRG8OgiM1KV140D+4f8rJkqbTCKj32uXokMuJ38woTyGnqBb565ygiFuU6uA0czHbvGxaw==
+  dependencies:
+    "@iarna/toml" "^2.2.3"
 
 netlify-redirector@^0.1.0:
   version "0.1.0"
