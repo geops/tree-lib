@@ -24,5 +24,17 @@
       { "altitudinalZone": "82", "forestType": "47*" },
       { "altitudinalZone": "20", "forestType": "55 collin" }
     ]
+  },
+  {
+    "location": {
+      "forestEcoregion": "1",
+      "forestType": "51C",
+      "altitudinalZone": "81",
+      "relief": "kup"
+
+    },
+    "projections": [
+      { "altitudinalZone": "60", "forestType": "19" }
+    ]
   }
 ]
