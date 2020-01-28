@@ -10,7 +10,7 @@
     "@neutrinojs/airbnb-base": "^9.0.0",
     "@neutrinojs/jest": "^9.0.0",
     "@neutrinojs/library": "^9.0.0",
-    "@semantic-release/changelog": "^3.0.6",
+    "@semantic-release/changelog": "^5.0.0",
     "@semantic-release/git": "^7.0.18",
     "documentation": "^12.1.4",
     "eslint": "^6.7.2",
