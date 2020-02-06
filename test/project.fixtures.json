@@ -38,5 +38,65 @@
       { "altitudinalZone": "40", "forestType": "6" },
       { "altitudinalZone": "20", "forestType": "6 collin" }
     ]
+  },
+  {
+    "location": {
+      "forestEcoregion": "2b",
+      "altitudinalZone": "90",
+      "forestType": "57VM",
+      "silverFirArea": "1",
+      "relief": "kup"
+    },
+    "projections": [
+      { "altitudinalZone": "81", "forestType": "51" },
+      { "altitudinalZone": "60", "forestType": "19" },
+      { "altitudinalZone": "50", "forestType": "8d" },
+      { "altitudinalZone": "40", "forestType": "6" }
+    ]
+  }
+  {
+    "location": {
+      "forestEcoregion": "2b",
+      "altitudinalZone": "90",
+      "forestType": "57VM",
+      "silverFirArea": "3",
+      "relief": "kup"
+    },
+    "projections": [
+      { "altitudinalZone": "81", "forestType": "51Re" },
+      { "altitudinalZone": "60", "forestType": "19" },
+      { "altitudinalZone": "50", "forestType": "8d" },
+      { "altitudinalZone": "40", "forestType": "6" }
+    ]
+  }
+  {
+    "location": {
+      "forestEcoregion": "2b",
+      "altitudinalZone": "90",
+      "forestType": "57VM",
+      "silverFirArea": "1",
+      "relief": "h_and_m"
+    },
+    "projections": [
+      { "altitudinalZone": "81", "forestType": "51" },
+      { "altitudinalZone": "60", "forestType": "18" },
+      { "altitudinalZone": "50", "forestType": "8a" },
+      { "altitudinalZone": "40", "forestType": "7a" }
+    ]
+  }
+  {
+    "location": {
+      "forestEcoregion": "2b",
+      "altitudinalZone": "90",
+      "forestType": "57VM",
+      "silverFirArea": "3",
+      "relief": "h_and_m"
+    },
+    "projections": [
+      { "altitudinalZone": "81", "forestType": "51Re" },
+      { "altitudinalZone": "60", "forestType": "18" },
+      { "altitudinalZone": "50", "forestType": "8a" },
+      { "altitudinalZone": "40", "forestType": "7a" }
+    ]
   }
 ]
