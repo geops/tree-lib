@@ -53,7 +53,7 @@
       { "altitudinalZone": "50", "forestType": "8d" },
       { "altitudinalZone": "40", "forestType": "6" }
     ]
-  }
+  },
   {
     "location": {
       "forestEcoregion": "2b",
@@ -68,7 +68,7 @@
       { "altitudinalZone": "50", "forestType": "8d" },
       { "altitudinalZone": "40", "forestType": "6" }
     ]
-  }
+  },
   {
     "location": {
       "forestEcoregion": "2b",
@@ -83,7 +83,7 @@
       { "altitudinalZone": "50", "forestType": "8a" },
       { "altitudinalZone": "40", "forestType": "7a" }
     ]
-  }
+  },
   {
     "location": {
       "forestEcoregion": "2b",
