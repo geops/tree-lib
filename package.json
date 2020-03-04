@@ -39,6 +39,7 @@
     "build": "webpack --mode production",
     "lint": "eslint --cache --format codeframe src",
     "test": "jest",
+    "format:json": "node scripts/format-json.js",
     "test:watch": "jest --watch",
     "prepublishOnly": "yarn build",
     "semantic-release": "semantic-release"
