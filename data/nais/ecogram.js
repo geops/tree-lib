@@ -70,7 +70,7 @@ const aggregateGeojson = (dir, geojsonFiles) => {
 
     let features = [];
     geojson.features.forEach((f, idx) => {
-      const { forTypes, otforTypes } = f.properties;
+      const { z, forTypes, otforTypes } = f.properties;
       const { coordinates } = f.geometry;
       const [coords] = coordinates[0];
       // Remove last coord, which is the same as the first one.
@@ -89,7 +89,7 @@ const aggregateGeojson = (dir, geojsonFiles) => {
         y: 1000 - y1 * 1000 - (1000 - y1 * 1000 - (1000 - y2 * 1000)),
         w: x2 * 1000 - x1 * 1000,
         h: 1000 - y1 * 1000 - (1000 - y2 * 1000),
-        // z,
+        z,
         f: [...fT, ...oT],
       });
     });
