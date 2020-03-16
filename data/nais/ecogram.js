@@ -3,6 +3,8 @@
 const path = require('path');
 const fs = require('fs');
 
+const types = require('../types.json');
+
 console.log(`
   This script reads all geojson files in /data/nais/geojson/ and aggregate them
   into two files: /data/nais/ecograms.json & /data/nais/locations.json
@@ -48,6 +50,11 @@ const aggregateGeojson = (dir, geojsonFiles) => {
     }
     const altitudinalZones = {};
     altZones.split(',').forEach(zone => {
+      const type = types.altitudinalZone.find(t => t.code === zone);
+      if (!type) {
+        console.log(`Altitudinal zone ${zone} not found! Skipping ...`);
+        return;
+      }
       altitudinalZones[zone] = geojsonIdx;
     });
 
@@ -58,6 +65,12 @@ const aggregateGeojson = (dir, geojsonFiles) => {
       `);
     }
     forestEcoR.split(',').forEach(region => {
+      const type = types.forestEcoregion.find(t => t.code === region);
+      if (!type) {
+        console.log(`Forest ecoregion ${region} not found! Skipping ...`);
+        return;
+      }
+
       if (!newLocationsJson[region]) {
         newLocationsJson[region] = altitudinalZones;
       } else {
