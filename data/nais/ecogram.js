@@ -69,7 +69,7 @@ const aggregateGeojson = (dir, geojsonFiles) => {
     });
 
     const features = [];
-    geojson.features.forEach((f) => {
+    geojson.features.forEach(f => {
       const { z, forTypes, otforTypes } = f.properties;
       const { coordinates } = f.geometry;
       const [coords] = coordinates[0];
@@ -96,7 +96,7 @@ const aggregateGeojson = (dir, geojsonFiles) => {
 
     newEcogramsJson[geojsonIdx] = features;
   });
-  const outputDirectory = path.join(__dirname, `./`);
+  const outputDirectory = path.join(__dirname, `../`);
   // If no outputs folder, create it.
   if (!fs.existsSync(outputDirectory)) {
     fs.mkdirSync(outputDirectory);
@@ -104,11 +104,11 @@ const aggregateGeojson = (dir, geojsonFiles) => {
 
   fs.writeFileSync(
     `${outputDirectory}/ecograms.json`,
-    JSON.stringify(newEcogramsJson, null, 2),
+    JSON.stringify(newEcogramsJson),
   );
   fs.writeFileSync(
     `${outputDirectory}/locations.json`,
-    JSON.stringify(newLocationsJson, null, 2),
+    JSON.stringify(newLocationsJson),
   );
 
   console.log(`
