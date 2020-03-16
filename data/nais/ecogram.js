@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const fs = require('fs');
@@ -13,7 +14,7 @@ const abortScript = alert => {
 };
 
 const getCoords = (coordinates, coordIdx, index) => {
-  let filteredCoords = coordinates.map(c => c[coordIdx].toFixed(3));
+  const filteredCoords = coordinates.map(c => c[coordIdx].toFixed(3));
 
   const coordsArray = [];
   filteredCoords.forEach(f => {
@@ -26,23 +27,22 @@ const getCoords = (coordinates, coordIdx, index) => {
 };
 
 const aggregateGeojson = (dir, geojsonFiles) => {
-  let newEcogramsJson = {};
-  let newLocationsJson = {};
+  const newEcogramsJson = {};
+  const newLocationsJson = {};
 
   geojsonFiles.forEach((filename, gIdx) => {
     const geojsonIdx = gIdx + 1;
-    const name = path.parse(filename).name;
-    const ext = path.parse(filename).ext;
+    const { ext, name } = path.parse(filename);
     const filepath = path.resolve(dir, filename);
     console.log(`  Start formating ${name}${ext}`);
-    let rawdata = fs.readFileSync(filepath);
-    let geojson = JSON.parse(rawdata);
+    const rawdata = fs.readFileSync(filepath);
+    const geojson = JSON.parse(rawdata);
 
     const { forestEcoR, altZones } = geojson.features[0].properties;
 
     if (!altZones) {
       abortScript(`
-      /!\\\ 'altZones' property not present or badly formated
+      /!\\ 'altZones' property not present or badly formated
       in at least the first feature, to be converted to 'altitudinalZones' !
       `);
     }
@@ -53,7 +53,7 @@ const aggregateGeojson = (dir, geojsonFiles) => {
 
     if (!forestEcoR) {
       abortScript(`
-      /!\\\ 'forestEcoR' property not present or badly formated
+      /!\\ 'forestEcoR' property not present or badly formated
       in at least the first feature, to be converted to 'forestEcoregions' !
       `);
     }
@@ -68,13 +68,13 @@ const aggregateGeojson = (dir, geojsonFiles) => {
       }
     });
 
-    let features = [];
-    geojson.features.forEach((f, idx) => {
+    const features = [];
+    geojson.features.forEach((f) => {
       const { z, forTypes, otforTypes } = f.properties;
       const { coordinates } = f.geometry;
       const [coords] = coordinates[0];
       // Remove last coord, which is the same as the first one.
-      coords.splice(coords.length - 1, coords.length)
+      coords.splice(coords.length - 1, coords.length);
 
       const x1 = getCoords(coords, 0, 0);
       const x2 = getCoords(coords, 0, 1);
@@ -96,7 +96,7 @@ const aggregateGeojson = (dir, geojsonFiles) => {
 
     newEcogramsJson[geojsonIdx] = features;
   });
-  const outputDirectory = path.join(__dirname, `./`)
+  const outputDirectory = path.join(__dirname, `./`);
   // If no outputs folder, create it.
   if (!fs.existsSync(outputDirectory)) {
     fs.mkdirSync(outputDirectory);
@@ -120,4 +120,3 @@ const geojsonFiles = fs
   .readdirSync('data/nais/geojson/')
   .filter(fileName => /.geojson/.test(fileName));
 aggregateGeojson('data/nais/geojson/', geojsonFiles);
-
