@@ -290,8 +290,9 @@
       "type": "Feature",
       "properties": {
         "id": 13,
+        "rows": "3",
         "z": "1",
-        "forestTypes": "12a,12Fe,12aG",
+        "forestTypes": "12a,12aFe,12aG",
         "otherForestTypes": null
       },
       "geometry": {

@@ -66,6 +66,7 @@ const aggregateEcograms = (dir, ecogramFiles) => {
         ),
         w: Math.round(x2 * 1000 - x1 * 1000),
         h: Math.round(1000 - y1 * 1000 - (1000 - y2 * 1000)),
+        r: parseInt(f.properties.r, 10),
         z: parseInt(f.properties.z, 10),
         f: [...new Set([...forestTypes, ...otherForestTypes])],
       });
