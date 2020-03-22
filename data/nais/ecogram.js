@@ -2,7 +2,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const fs = require('fs');
-const union = require('lodash.union');
 
 const types = require('../types.json');
 
@@ -33,53 +32,55 @@ function writeJSON(filename, data) {
   fs.writeFileSync(filepath, JSON.stringify(data));
 }
 
-const aggregateEcograms = (dir, ecogramFiles) => {
+const aggregateEcograms = () => {
+  const dir = 'data/nais/ecogram/';
   const ecograms = {};
   const locations = {};
 
-  ecogramFiles.forEach(filename => {
-    console.log(`  Start formating ${filename}`);
-    const { name } = path.parse(filename);
+  fs.readdirSync(dir).forEach(filename => {
+    console.log(`  Start aggregating ${filename}`);
+    const id = parseInt(path.parse(filename).name, 10);
     const filepath = path.resolve(dir, filename);
     const rawdata = fs.readFileSync(filepath);
     const ecogram = JSON.parse(rawdata);
 
     const { forestEcoregions, altitudinalZones } = ecogram.properties || {};
+    // TODO: remove the following variable once branch "hochmontan" is merged!
+    const filteredAltitudinalZones = altitudinalZones.filter(z => z !== "80");
 
     validate('forestEcoregion', forestEcoregions);
-    validate('altitudinalZone', altitudinalZones);
+    validate('altitudinalZone', filteredAltitudinalZones);
 
     forestEcoregions.forEach(region => {
-      locations[region] = union(altitudinalZones, locations[region]);
+      locations[region] = locations[region] || {};
+      filteredAltitudinalZones.forEach(zone => {
+        locations[region][zone] = id;
+      });
     });
 
-    const features = [];
+    const boxes = [];
     ecogram.features.forEach(f => {
       const forestTypes = f.properties.forestTypes.split(',') || [];
       const otherForestTypes = f.properties.forestTypes.split(',') || [];
       const [[x1, y1], , [x2, y2]] = f.geometry.coordinates[0][0];
+      const height = 1000 - y1 * 1000 - (1000 - y2 * 1000);
 
-      features.push({
+      boxes.push({
         x: Math.round(x1 * 1000),
-        y: Math.round(
-          1000 - y1 * 1000 - (1000 - y1 * 1000 - (1000 - y2 * 1000)),
-        ),
-        w: Math.round(x2 * 1000 - x1 * 1000),
-        h: Math.round(1000 - y1 * 1000 - (1000 - y2 * 1000)),
-        r: parseInt(f.properties.r, 10),
-        z: parseInt(f.properties.z, 10),
+        y: Math.round(1000 - y1 * 1000 - height),
+        w: Math.round(x2 * 1000 - x1 * 1000), // width
+        h: Math.round(height),
+        r: parseInt(f.properties.r, 10), // rows
+        z: parseInt(f.properties.z, 10), // z-index
         f: [...new Set([...forestTypes, ...otherForestTypes])],
       });
     });
 
-    ecograms[name] = features;
+    ecograms[id] = boxes;
   });
 
   writeJSON('ecograms.json', ecograms);
   writeJSON('locations.json', locations);
 };
 
-const ecogramFiles = fs
-  .readdirSync('data/nais/ecogram/')
-  .filter(fileName => /.geojson/.test(fileName));
-aggregateEcograms('data/nais/ecogram/', ecogramFiles);
+aggregateEcograms();
