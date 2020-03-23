@@ -221,6 +221,7 @@
       "type": "Feature",
       "properties": {
         "id": 10,
+        "rows": "2",
         "z": "1",
         "forestTypes": "8S,8SFe",
         "otherForestTypes": null
@@ -244,6 +245,7 @@
       "type": "Feature",
       "properties": {
         "id": 11,
+        "rows": "2",
         "z": "1",
         "forestTypes": "12S,12SFe",
         "otherForestTypes": null
@@ -267,6 +269,7 @@
       "type": "Feature",
       "properties": {
         "id": 12,
+        "rows": "2",
         "z": "1",
         "forestTypes": "13a,13aFe",
         "otherForestTypes": null
@@ -314,6 +317,7 @@
       "type": "Feature",
       "properties": {
         "id": 14,
+        "rows": "2",
         "z": "1",
         "forestTypes": "8a,8aFe",
         "otherForestTypes": null
@@ -337,6 +341,7 @@
       "type": "Feature",
       "properties": {
         "id": 15,
+        "rows": "2",
         "z": "1",
         "forestTypes": "8d,8dFe",
         "otherForestTypes": null

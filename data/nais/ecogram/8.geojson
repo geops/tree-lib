@@ -175,9 +175,10 @@
       "type": "Feature",
       "properties": {
         "id": 8,
+        "rows": "2",
         "z": "1",
-        "forestTypes": "9a,9aFe",
-        "otherForestTypes": null
+        "forestTypes": "9a",
+        "otherForestTypes": "9aFe"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -313,9 +314,10 @@
       "type": "Feature",
       "properties": {
         "id": 14,
+        "rows": "2",
         "z": "1",
-        "forestTypes": "6,6Fe",
-        "otherForestTypes": null
+        "forestTypes": "6",
+        "otherForestTypes": "6Fe"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -451,9 +453,10 @@
       "type": "Feature",
       "properties": {
         "id": 20,
+        "rows": "2",
         "z": "1",
-        "forestTypes": "14,14G",
-        "otherForestTypes": null
+        "forestTypes": "14",
+        "otherForestTypes": "14G"
       },
       "geometry": {
         "type": "MultiPolygon",

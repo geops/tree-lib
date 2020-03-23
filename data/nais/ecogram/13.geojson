@@ -360,7 +360,7 @@
       "properties": {
         "id": 16,
         "z": "1",
-        "forestTypes": "3S",
+        "forestTypes": "3s",
         "otherForestTypes": "3sG"
       },
       "geometry": {
