@@ -51,9 +51,9 @@ const aggregateEcograms = () => {
 
     const { forestEcoregions, altitudinalZones } = ecogram.properties || {};
     // TODO: remove the following variable once branch "hochmontan" is merged!
-    const filteredAltitudinalZones = altitudinalZones.map((z) =>
-      z === '80' ? '81' : z,
-    );
+    const filteredAltitudinalZones = altitudinalZones.includes('80')
+      ? [...altitudinalZones.filter((z) => z !== '80'), '81', '82', '83']
+      : altitudinalZones;
 
     validate('forestEcoregion', forestEcoregions);
     validate('altitudinalZone', filteredAltitudinalZones);
